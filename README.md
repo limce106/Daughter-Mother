@@ -1,2 +1,2 @@
 # Daughter-Mother
-GURU1 Unity분반 6조
+GURU1 Unity 분반 6조
