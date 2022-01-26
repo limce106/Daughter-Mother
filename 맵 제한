@@ -17,7 +17,7 @@ public class EntranceBlock : MonoBehaviour
 
     void Destroy_Block()
     {
-        if (pc.hp == 14)
+        if (pc.hp == 0)
         {
             Destroy(gameObject);
         }
