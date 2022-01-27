@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SetName.unity
     guid: fcf4af6ca931314478ea9043e87c70e9
+  - enabled: 1
+    path: Assets/Scenes/ExplainGame.unity
+    guid: 6508cf7febfa2ee4482ab0c6e7ea3a52
+  - enabled: 1
+    path: Assets/Scenes/BedRoom.unity
+    guid: 99d02000cea6621469f0b538753d8527
   m_configObjects: {}
