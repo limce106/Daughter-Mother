@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     int maxHp;
 
     // Hit 효과 오브젝트
-     public GameObject hitEffect;
+    public GameObject hitEffect;
 
     // 애니메이터 변수
     Animator anim;
@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     // 플레이어 공격 확인
     bool playerAttacking;
+
+    // 대화창
+    public ChatManager chatManager;
 
     void Start()
     {
@@ -47,22 +50,30 @@ public class PlayerController : MonoBehaviour
             playerAttacking = true;
             anim.SetBool("isAttack(hand)", playerAttacking);
         }
-
-        // 좌우로 움직이기
-        if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+        // 대화창이 활성화된 상태라면 플레이어는 움직이지 않는다.
+        if (chatManager.isAction)
         {
-            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
-            playerMoving = true;
-            lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+            playerMoving = false;
         }
-
-        // 상하로 움직이기
-        if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
+        else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
         {
-            transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
-            playerMoving = true;
-            lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
+            // 좌우로 움직이기
+            if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+            {
+                transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
+                playerMoving = true;
+                lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+            }
+
+            // 상하로 움직이기
+            if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
+            {
+                transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
+                playerMoving = true;
+                lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
+            }
         }
+        
 
         anim.SetFloat("DirX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("DirY", Input.GetAxisRaw("Vertical"));
