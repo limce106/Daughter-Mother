@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public Text DescriptionText;
     // Slot의 부모 객체. (그리드)
     // 부모 객체의 자식 객체들 즉, slot. InventorySlot[] 안에 넣음
-    public Transform tf; // 이 스크립트를 어디다가 붙이는지가 문제인 것 같은데ㅔ...
+    //public Transform tf; // 이 스크립트를 어디다가 붙이는지가 문제인 것 같은데ㅔ...
 
     // 선택된 아이템의 번호
     private int selectedItem;
@@ -35,7 +35,7 @@ public class Inventory : MonoBehaviour
     {
         // 초기화 진행
         inventoryItemList = new List<Item>(); //인벤토리 아이템 리스트 초기화
-        slots = tf.GetComponentsInChildren<InventorySlot>(); // 그리드의 자식객체인 slot 프리팹들이 slots에 들어감
+        //slots = tf.GetComponentsInChildren<InventorySlot>(); // 그리드의 자식객체인 slot 프리팹들이 slots에 들어감
 
         inventoryPanel.SetActive(activeInventory); //인벤토리 UI 활성화
     }
