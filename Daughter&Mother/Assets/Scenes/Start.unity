@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9991173c9b053841bbe4264ec1c1093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputName: {fileID: 0}
 --- !u!4 &1319202032
 Transform:
   m_ObjectHideFlags: 0
@@ -693,7 +694,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1319202031}
         m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeScene2Name
+        m_MethodName: ChangeToNameScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -753,6 +754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9991173c9b053841bbe4264ec1c1093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputName: {fileID: 0}
 --- !u!1 &1576883249
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,6 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9991173c9b053841bbe4264ec1c1093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputName: {fileID: 0}
 --- !u!114 &1936880174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,7 +949,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1319202031}
         m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeSceneOut
+        m_MethodName: GameOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

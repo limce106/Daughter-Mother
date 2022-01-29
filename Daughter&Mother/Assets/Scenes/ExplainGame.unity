@@ -149,9 +149,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 27098539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4766e29cc57dc854b8ab41bf6ab278af, type: 3}
+  m_Script: {fileID: 11500000, guid: b9991173c9b053841bbe4264ec1c1093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputName: {fileID: 0}
 --- !u!4 &27098541
 Transform:
   m_ObjectHideFlags: 0
@@ -416,8 +417,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 27098540}
-        m_TargetAssemblyTypeName: GameStartButton, Assembly-CSharp
-        m_MethodName: ChangeScene2Game
+        m_TargetAssemblyTypeName: Button, Assembly-CSharp
+        m_MethodName: ChangeSToBedroomScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -847,20 +847,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1814192258}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
-        m_MethodName: Save
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1814192258}
-        m_TargetAssemblyTypeName: NameButton, Assembly-CSharp
-        m_MethodName: ChangeScene2Explain
+        m_TargetAssemblyTypeName: Button, Assembly-CSharp
+        m_MethodName: ChangeSToExplainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1036,7 +1024,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1814192257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 031a8498051e9d34099876db8476f713, type: 3}
+  m_Script: {fileID: 11500000, guid: b9991173c9b053841bbe4264ec1c1093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputName: {fileID: 4155387}
