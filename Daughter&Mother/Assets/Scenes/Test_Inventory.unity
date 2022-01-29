@@ -1508,6 +1508,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581639803}
   m_CullTransparentMesh: 1
+--- !u!1 &628634728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 628634729}
+  - component: {fileID: 628634731}
+  - component: {fileID: 628634730}
+  m_Layer: 5
+  m_Name: itemNameText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &628634729
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628634728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1294897686}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 30, y: -73}
+  m_SizeDelta: {x: 605.3143, y: 55.3926}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &628634730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628634728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ff7f3e713846e7346940edabe0d53d12, type: 3}
+    m_FontSize: 45
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 45
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\uB9C8\uBC95\uBD09"
+--- !u!222 &628634731
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628634728}
+  m_CullTransparentMesh: 1
 --- !u!1 &637794413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,6 +2754,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1394589107}
+  - {fileID: 628634729}
   m_Father: {fileID: 2090426777}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2750,15 +2830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99898f2acbfaca244983cadf61dd6ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDB:
-  - itemType: 0
-    itemName: Item1
-    itemImage: {fileID: 21300000, guid: 3051e0ada8daaee4a9ce683777be6f9d, type: 3}
-  - itemType: 1
-    itemName: Item2
-    itemImage: {fileID: 21300000, guid: f3e98cf2c291d0a439f7aee125250bbf, type: 3}
-  fieldItemPrefab: {fileID: 0}
-  pos: []
+  itemList: []
 --- !u!4 &1322957606
 Transform:
   m_ObjectHideFlags: 0
@@ -3045,7 +3117,7 @@ GameObject:
   - component: {fileID: 1394589109}
   - component: {fileID: 1394589108}
   m_Layer: 5
-  m_Name: ExplainText
+  m_Name: itemDescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3068,7 +3140,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 30, y: -300}
-  m_SizeDelta: {x: 650, y: 263.8596}
+  m_SizeDelta: {x: 605.3142, y: 213.0804}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1394589108
 MonoBehaviour:
@@ -3103,10 +3175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uC774\uD15C \uC124\uBA85 \uD14D\uC2A4\uD2B8 \uC785\uB2C8\uB2E4.
-    \n\n\uC548\uB155\uD558\uC2ED\uB2C8\uAE4C \uD504\uB85C\uADF8\uB798\uBC0D \uAD6C\uB8E81
-    Unity \uBD84\uBC18 6\uC870 \uC785\uB2C8\uB2E4. \uC800\uD76C\uB294 2D RPG \uAC8C\uC784\uC744
-    \uB9CC\uB4E4\uC5B4 \uBCF4\uC558\uC2B5\uB2C8\uB2E4. \n\n\uACF5\uACA9\uB825 : 1"
+  m_Text: "\uC544\uC774\uD15C \uC124\uBA85 \uD14D\uC2A4\uD2B8 \uC785\uB2C8\uB2E4. "
 --- !u!222 &1394589109
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class ItemDatabase : MonoBehaviour
 
     private void Start() {
         // 아이템 리스트에 아이템 추가 (Add)
-        itemList.Add(new Item("candy", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
+        itemList.Add(new Item(1, "candy", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
 
     }
 
