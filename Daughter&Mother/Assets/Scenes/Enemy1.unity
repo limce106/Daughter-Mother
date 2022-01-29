@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27347993fa72f1f449894dadd06af443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 5
   hp: 15
   hitEffect: {fileID: 1719472169}
 --- !u!50 &340993550
@@ -691,8 +691,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   findDistance: 8
-  attackDistance: 2
-  moveSpeed: 5
+  attackDistance: 1
+  moveSpeed: 3
   attackPower: 3
   hp: 15
 --- !u!65 &906818675

@@ -25,7 +25,7 @@ public class Enemy1Controller : MonoBehaviour
     Transform player;
 
     // 공격 가능 범위
-    public float attackDistance = 2f;
+    public float attackDistance = 1f;
 
     // 이동 속도
     public float moveSpeed = 5f;
@@ -152,7 +152,7 @@ public class Enemy1Controller : MonoBehaviour
     {
         enemyMoving = true;
 
-        Vector3 dir = Vector3.zero;
+        //Vector3 dir = Vector3.zero;
 
         // 만일, 플레이어가 공격 범위 이내에 있다면 플레이어를 공격한다.
         if (Vector3.Distance(transform.position, player.position) < attackDistance)
@@ -172,6 +172,8 @@ public class Enemy1Controller : MonoBehaviour
         // 그렇지 않다면, 현재 상태를 이동(Move)으로 전환한다(재추격 실시).
         else
         {
+            //dir = (player.position - transform.position).normalized;
+
             m_State = EnemyState.Move;
             print("상태 전환: Attack -> Move");
             currentTime = 0;
@@ -179,11 +181,11 @@ public class Enemy1Controller : MonoBehaviour
             // 이동 애니메이션 플레이
             //anim.SetTrigger("AttackToMove");
         }
-        anim.SetFloat("DirX", dir.x);
-        anim.SetFloat("DirY", dir.y);
-        anim.SetBool("isMove", enemyMoving);
-        anim.SetFloat("LastMoveX", lastMove.x);
-        anim.SetFloat("LastMoveY", lastMove.y);
+        //anim.SetFloat("DirX", dir.x);
+        //anim.SetFloat("DirY", dir.y);
+        //anim.SetBool("isMove", enemyMoving);
+        //anim.SetFloat("LastMoveX", lastMove.x);
+        //anim.SetFloat("LastMoveY", lastMove.y);
     }
 
     void Damaged()
