@@ -15,7 +15,7 @@ public class ChatManager : MonoBehaviour
     // 대화창에 띄울 텍스트
     public Text talkText;
     // 플레이어가 조사한 오브젝트
-    public string name;
+    public PickUpItem item;
     // 대화창 
     public GameObject talkPanel;
 
@@ -36,8 +36,7 @@ public class ChatManager : MonoBehaviour
         {
             // 대화창 활성화
             isAction = true;     
-            name = _name;
-            talkText.text = "이것의 이름은 " + name + "이라고 한다.";
+            talkText.text = "이것의 이름은 " + _name + "이라고 한다.";
             // 대화 중에 플레이어 움직이지 못하도록 -> playerController 스크립트
         }
         // 대화창 이미지도 같이 활/비활성화

@@ -22,8 +22,8 @@ public class PickUpItem : MonoBehaviour
     {
         if (isPickUp && Input.GetKeyDown(KeyCode.Space))
         {
+            // 대화창을 활성화 시킨다.
             chatManager.Action("어쩌구저쩌구");
-            PickUp();
         }
     }
 
@@ -45,6 +45,7 @@ public class PickUpItem : MonoBehaviour
         }
     }
 
+    // 인벤토리에 넣는 아이템일 경우 삭제시키고 인벤토리에 넣는다. 
     void PickUp()
     {
         Destroy(gameObject);
