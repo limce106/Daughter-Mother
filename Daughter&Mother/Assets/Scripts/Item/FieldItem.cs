@@ -13,10 +13,10 @@ public class FieldItem : MonoBehaviour
     public void SetItem(Item _item)
     {
         item.itemName = _item.itemName; 
-        item.itemImage = _item.itemImage; 
+        item.itemIcon = _item.itemIcon; 
         item.itemType = _item.itemType; 
         // 아이템에 맞춰서 sprite도 바꿈
-        image.sprite = item.itemImage; 
+        image.sprite = item.itemIcon; 
     }
 
     // 아이템을 획득했을 때
