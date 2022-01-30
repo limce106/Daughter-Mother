@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     // 슬롯 UI에 나타나는 요소들
-    public Image icon;
+    public Image icon; // 이미지
     // 아이템 선택 시 배경 변화하는 버튼
     public GameObject selectedItem;
 
