@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     public GameObject Player;
     public GameObject Enemy;
 
+    // 대화창
+    public ChatManager chatManager;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -63,41 +66,50 @@ public class PlayerController : MonoBehaviour
         playerMoving = false;
         playerAttacking = false;
 
-        // 좌우로 움직이기
-        if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+        // 대화창이 활성화된 상태라면 플레이어는 움직이지 않는다.
+        if (chatManager.isAction)
         {
-            // 만일, 플레이어의 hp가 0 이하라면...
-            if (hp <= 0)
-            {
-                // 플레이어의 애니메이션을 멈춘다.
-                anim.SetBool("isMove", false);
-                anim.SetBool("isAttack", false);
-            }
-            else
-            {
-                transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
-                playerMoving = true;
-                lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
-            }
+            playerMoving = false;
         }
+        else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
+        {
+            // 좌우로 움직이기
+            if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+            {
+                // 만일, 플레이어의 hp가 0 이하라면...
+                if (hp <= 0)
+                {
+                    // 플레이어의 애니메이션을 멈춘다.
+                    anim.SetBool("isMove", false);
+                    anim.SetBool("isAttack", false);
+                }
+                else
+                {
+                    transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
+                    playerMoving = true;
+                    lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+                }
+            }
 
-        // 상하로 움직이기
-        if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
-        {
-            // 만일, 플레이어의 hp가 0 이하라면...
-            if (hp <= 0)
+            // 상하로 움직이기
+            if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
             {
-                // 플레이어의 애니메이션을 멈춘다.
-                anim.SetBool("isMove", false);
-                anim.SetBool("isAttack", false);
-            }
-            else
-            {
-                transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
-                playerMoving = true;
-                lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
+                // 만일, 플레이어의 hp가 0 이하라면...
+                if (hp <= 0)
+                {
+                    // 플레이어의 애니메이션을 멈춘다.
+                    anim.SetBool("isMove", false);
+                    anim.SetBool("isAttack", false);
+                }
+                else
+                {
+                    transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
+                    playerMoving = true;
+                    lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
+                }
             }
         }
+        
 
         anim.SetFloat("DirX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("DirY", Input.GetAxisRaw("Vertical"));

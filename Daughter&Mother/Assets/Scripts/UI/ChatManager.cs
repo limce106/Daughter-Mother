@@ -17,10 +17,11 @@ public class ChatManager : MonoBehaviour
     // 플레이어가 조사한 오브젝트
     public PickUpItem item;
     // 대화창 
-    public GameObject talkPanel;
+    public GameObject talkPanel; 
 
     // 처음 시작할 때 대화창 안보이도록 비활성화
-    private void Start() {
+    private void Start() 
+    {
         talkPanel.SetActive(false);
     }
 
