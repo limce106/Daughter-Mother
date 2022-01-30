@@ -54,6 +54,11 @@ public class Inventory : MonoBehaviour
         {
             activeInventory = !activeInventory;
             inventoryPanel.SetActive(activeInventory);
+            // 인벤토리 창을 열면 SelectedItem 초기화~!!
+            selectedItem = -1;
+            // 설명창 초기화
+            PrintEmptyText(); 
+
         }
         // 인벤토리가 활성화 된 경우에
         // 마우스 왼쪽 버튼으로 slot을 클릭하면 정보를 확인할 수 있다.
@@ -68,8 +73,6 @@ public class Inventory : MonoBehaviour
     // 아이템 활성화 (invenrotyItemList에 아이템들을 넣어주고, 출력)
     public void ShowItem()
     {
-        // 맨 처음 selectedItem 0으로 초기화 
-        selectedItem  = 0;
         // 인벤토리 아이템 리스트의 내용을, 인벤토리 슬롯에 추가 
         for(int i = 0; i < inventoryItemList.Count; i++) // 소지한 아이템의 개수만큼
         {
@@ -88,23 +91,41 @@ public class Inventory : MonoBehaviour
         // 아이템 슬롯의 개수만큼 탐색한다. 
         for (int i =0; i < slots.Length; i++) 
         {
-            // 만약 보유한 아이템의 수보다 적은 인덱스(버튼의 이름)의 슬롯 버튼을 클릭했을 때,
+            // 만약 보유한 아이템의 수보다 작은 인덱스(버튼의 이름)의 슬롯 버튼을 클릭했을 때,
             // 클릭한게 i번째라면 (버튼 오브젝트의 이름을 미리 변경)
-            if ((i < inventoryItemList.Count) && (clickedButton.name == ("Slot" + i)))
+            // i = selectedItem이라면 장착하므로 제외
+            if ((i < inventoryItemList.Count) && (clickedButton.name == ("Slot" + i) && (i != selectedItem)))
             {
+                Debug.Log("SelectedItem : " + selectedItem);
                 // 선택한 아이템의 인덱스를 i로 바꾸어 주고
                 selectedItem = i;
                 // selectedItem 번째의 슬롯으로 아이템 이름 및 설명 텍스트 바꾼다. 
                 PrintText();
+            }
+            // 보유한 아이템의 수보다 작은 인덱스의 슬롯 버튼을 클릭하였고
+            // 클릭한게 i 번째이면서
+            // i == selectedItem이다. 즉, 이미 한번 selected된 버튼을 한번 더 클릭 한 것. 
+            else if ((i < inventoryItemList.Count) && (clickedButton.name == ("Slot" + i) && (i == selectedItem)))
+            {
+                // 제대로 실행 되는지 TEST
+                NameText.text = "장비를 착용합니다. "; 
+                Debug.Log("한번 더 클릭해서 장비 착용");
+                // InventoyItemList[i]의 itemType에 따라서
+                // 장비일 경우 플레이어의 stat - 장비에 추가, 플레이어의 공격력 증가, 이미지를 인벤토리에 띄움
+                // 방어구일 결우 플레이어의 stat - 방어구에 추가, 플레이어의 방어력 증가, 이미지를 인벤토리에 띄움
+                // 소모품일 경우 플레이어의 stat - HP를 수치만큼 증가하고 InventoryItemList에서 삭제함
             }
             // 선택한 버튼이 아이템의 수보다 적은 인덱스의 슬롯 버튼일 때, 
             else if (clickedButton.name == ("Slot" + i))
             {
                 // 빈 텍스트를 나타낸다. 
                 PrintEmptyText();
+                // 선택된 아이템 X (아이템 슬롯 한번 누르고 -> 빈 슬롯 누르고 -> 다시 같은 아이템 눌렀을 때 장비되는 것 막기 위함)
+                selectedItem = -1;
             }
         }
     }
+
 
     // 아이템 이름과 설명 텍스트를 공백으로
     public void PrintEmptyText()
@@ -120,4 +141,5 @@ public class Inventory : MonoBehaviour
         NameText.text = inventoryItemList[selectedItem].itemName; 
         DescriptionText.text = inventoryItemList[selectedItem].itemDescription; 
     }
+
 }
