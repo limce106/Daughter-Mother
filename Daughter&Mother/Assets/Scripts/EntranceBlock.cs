@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class EntranceBlock : MonoBehaviour
 {
-    PlayerController pc;
-    void Start()
-    {
-        PlayerController pc = GameObject.Find("Player").GetComponent<PlayerController>();
-    }
-
     void Update()
     {
-        Destroy_Block();
-    }
-
-    void Destroy_Block()
-    {
-        if (pc.hp == 0)
+        EnemyController ec = GameObject.Find("Enemy").GetComponent<EnemyController>();
+        // Enemy2Controller ec = GameObject.Find("Enemy2").GetComponent<Enemy2Controller>();
+        // Enemy3Controller ec = GameObject.Find("Enemy3").GetComponent<Enemy3Controller>();
+        if (ec.hp <= 0)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            return;
         }
     }
 }
