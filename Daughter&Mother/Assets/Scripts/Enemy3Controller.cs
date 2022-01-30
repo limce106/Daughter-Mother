@@ -57,6 +57,12 @@ public class Enemy3Controller : MonoBehaviour
     // 마지막 움직임 방향 확인 변수
     Vector2 lastMove;
 
+    // 가속 누적 시간
+    float accCurrentTime = 0;
+
+    // 가속 딜레이 시간
+    float accDelay = 5f;
+
     void Start()
     {
         // 최초의 에너미 상태는 대기로 한다.
@@ -109,6 +115,24 @@ public class Enemy3Controller : MonoBehaviour
         }
     }
 
+    void Acceleration()
+    {
+        accCurrentTime += Time.deltaTime;
+        if (accCurrentTime > accDelay)
+        {
+            moveSpeed = 5f;
+            Debug.Log("순간가속!");
+            if (accCurrentTime - accDelay > 2f) // 5초 이후 2초간 빨라짐
+            {
+                accCurrentTime = 0;
+            }
+        }
+        else
+        {
+            moveSpeed = 1f;
+            Debug.Log("순간가속멈춤" + string.Format("{0:N1}", moveSpeed) + string.Format("{0:N1}", accCurrentTime));
+        }
+    }
     void Move()
     {
         enemyMoving = true;
@@ -120,6 +144,9 @@ public class Enemy3Controller : MonoBehaviour
         {
             // 이동 방향 설정
             dir = (player.position - transform.position).normalized;
+
+            //순간가속 몇초에 한번씩 할 수 있도록 해야함
+            Acceleration();
 
             // 캐릭터 콘트롤러를 이용해 이동하기
             cc.Move(dir * moveSpeed * Time.deltaTime);
