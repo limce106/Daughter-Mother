@@ -79,7 +79,7 @@ public class Inventory : MonoBehaviour
     // 아이템 활성화 (invenrotyItemList에 아이템들을 넣어주고, 출력)
     public void ShowItem()
     {
-        // 맨 처음 selectedItem은 0번째 
+        // 맨 처음 selectedItem 0으로 초기화 
         selectedItem  = 0;
         // 인벤토리 아이템 리스트의 내용을, 인벤토리 슬롯에 추가 
         for(int i = 0; i < inventoryItemList.Count; i++) // 소지한 아이템의 개수만큼
@@ -97,16 +97,35 @@ public class Inventory : MonoBehaviour
     public void OnClickButton()
     {
         Debug.Log("OnButtonClick 함수 호출");
+        // 방금 클릭한 버튼 오브젝트를 가져와서 저장
+        GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
         // 클릭한 버튼의 번호로 selectedItem 변경
-        for (int i =0; i < button.Length -1; i++)
+        for (int i =0; i < inventoryItemList.Count; i++) //아이템 리스트 만큼
         {
             // i번째 버튼을 눌렀다면
-            if (EventSystem.current.currentSelectedGameObject.name == ("slot" + i))
+            if (clickedButton.name == ("Slot" + i))
             {
                 selectedItem = i;
             }
+            else
+            {
+                // 아이템 이름과 텍스트 창을 비움
+                PrintEmptyText();
+            }
         }
         // selectedItem 번째의 슬롯으로 아이템 이름 및 설명 텍스트 바꾸기
+        PrintText();
+    }
+
+    // 아이템 이름과 설명 텍스트를 공백으로
+    public void PrintEmptyText()
+    {
+        NameText.text = " ";
+        DescriptionText.text = " ";
+    }
+    // 아이템 이름과 설명을 선택한 아이템의 것으로
+    public void PrintText()
+    {
         NameText.text = inventoryItemList[selectedItem].itemName; 
         DescriptionText.text = inventoryItemList[selectedItem].itemDescription; 
     }
