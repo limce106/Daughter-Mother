@@ -42,8 +42,8 @@ public class Inventory : MonoBehaviour
         inventoryPanel.SetActive(activeInventory); //인벤토리 UI 활성화 여부
 
         // TEST : 아이템 획득 한 경우
-        inventoryItemList.Add(new Item(1, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
-        inventoryItemList.Add(new Item(2, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Weapon));
+        inventoryItemList.Add(new Item(9, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
+        inventoryItemList.Add(new Item(5, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Weapon));
     }
 
     void Update()
@@ -126,7 +126,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
     // 아이템 이름과 설명 텍스트를 공백으로
     public void PrintEmptyText()
     {
@@ -141,5 +140,4 @@ public class Inventory : MonoBehaviour
         NameText.text = inventoryItemList[selectedItem].itemName; 
         DescriptionText.text = inventoryItemList[selectedItem].itemDescription; 
     }
-
 }
