@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
+    /* 인스턴스 */
+    public static Inventory instance;
+
     /* 변수 */
     // 아이템을 선택 했을 때의 이름
     public Text NameText; 
@@ -27,23 +30,21 @@ public class Inventory : MonoBehaviour
     // 인벤토리창 활성화시 true
     bool activeInventory = false;
 
-    // 중복실행 제한
-    bool preventExec;
+    // 아이템데이터베이스에 접근
+    public ItemDatabase theDatabase;
+
 
     /* 함수 */
     // 시작 : 인벤토리창 초기화
     void Start() 
     {
         // 초기화 진행
+        instance = this;
         inventoryItemList = new List<Item>(); //인벤토리 아이템 리스트 초기화
-        // 이 둘이 결국은 같은 오브젝트인데... 클래스가 다르지만... 
         slots = tf.GetComponentsInChildren<InventorySlot>(); // 그리드의 자식객체인 slot들이 배열 slots에 들어감
+        theDatabase = FindObjectOfType<ItemDatabase>(); // ItemDataBase 스크립트
 
         inventoryPanel.SetActive(activeInventory); //인벤토리 UI 활성화 여부
-
-        // TEST : 아이템 획득 한 경우
-        inventoryItemList.Add(new Item(9, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
-        inventoryItemList.Add(new Item(5, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Weapon));
     }
 
     void Update()
@@ -70,7 +71,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // 아이템 활성화 (invenrotyItemList에 아이템들을 넣어주고, 출력)
+    // 아이템 활성화 (invenrotyItemList에 아이템들을 넣어줌)
     public void ShowItem()
     {
         // 인벤토리 아이템 리스트의 내용을, 인벤토리 슬롯에 추가 
@@ -96,7 +97,6 @@ public class Inventory : MonoBehaviour
             // i = selectedItem이라면 장착하므로 제외
             if ((i < inventoryItemList.Count) && (clickedButton.name == ("Slot" + i) && (i != selectedItem)))
             {
-                Debug.Log("SelectedItem : " + selectedItem);
                 // 선택한 아이템의 인덱스를 i로 바꾸어 주고
                 selectedItem = i;
                 // selectedItem 번째의 슬롯으로 아이템 이름 및 설명 텍스트 바꾼다. 
@@ -109,7 +109,6 @@ public class Inventory : MonoBehaviour
             {
                 // 제대로 실행 되는지 TEST
                 NameText.text = "장비를 착용합니다. "; 
-                Debug.Log("한번 더 클릭해서 장비 착용");
                 // InventoyItemList[i]의 itemType에 따라서
                 // 장비일 경우 플레이어의 stat - 장비에 추가, 플레이어의 공격력 증가, 이미지를 인벤토리에 띄움
                 // 방어구일 결우 플레이어의 stat - 방어구에 추가, 플레이어의 방어력 증가, 이미지를 인벤토리에 띄움
@@ -129,15 +128,34 @@ public class Inventory : MonoBehaviour
     // 아이템 이름과 설명 텍스트를 공백으로
     public void PrintEmptyText()
     {
-        Debug.Log("PrintEmptyText 호출");
         NameText.text = " ";
         DescriptionText.text = " ";
     }
     // 아이템 이름과 설명을 선택한 아이템의 것으로
     public void PrintText()
     {
-        Debug.Log("PrintText 호출");
         NameText.text = inventoryItemList[selectedItem].itemName; 
         DescriptionText.text = inventoryItemList[selectedItem].itemDescription; 
+    }
+
+    // 아이템 찾기
+    public void GetAnItem(int _itemID)
+    {
+        //Debug.Log("GetAnItem 함수 실행");
+        Debug.Log("가져온 데이터베이스의 itemList.Count : "+theDatabase.itemList.Count);
+        // 데이터베이스 검색 
+        // 데이터 베이스의 아이템 리스트 크기만큼 반복하며 ID를 찾음
+        for (int i = 0; i < theDatabase.itemList.Count; i++)
+        {
+            Debug.Log("데이터베이스에서 아이템 ID 검색 중 : " + i);
+            if (_itemID == theDatabase.itemList[i].itemID) //베이스에서 ID를 찾으면
+            {
+                Debug.Log("데이터베이스에서 아이템 ID를 찾았습니다.");
+                inventoryItemList.Add(theDatabase.itemList[i]); //inventoruItemList에 추가
+                return;
+            }
+        }
+        // 만약 데이터베이스에서 해당 ID의 아이템을 발견하지 못하면 에러창을 띄움.
+        Debug.LogError("데이터베이스에 해당 ID를 가진 아이템이 존재하지 않습니다.");
     }
 }
