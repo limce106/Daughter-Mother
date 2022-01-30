@@ -30,9 +30,6 @@ public class Inventory : MonoBehaviour
     // 중복실행 제한
     bool preventExec;
 
-    // 버튼 컴포넌트
-    private Button[] button;
-
     /* 함수 */
     // 시작 : 인벤토리창 초기화
     void Start() 
@@ -41,7 +38,6 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item>(); //인벤토리 아이템 리스트 초기화
         // 이 둘이 결국은 같은 오브젝트인데... 클래스가 다르지만... 
         slots = tf.GetComponentsInChildren<InventorySlot>(); // 그리드의 자식객체인 slot들이 배열 slots에 들어감
-        button = tf.GetComponentsInChildren<Button>(); // 그리드의 자식 객체인 slot 들이 button 배열 button에 들어감. 
 
         inventoryPanel.SetActive(activeInventory); //인벤토리 UI 활성화 여부
 
@@ -58,21 +54,14 @@ public class Inventory : MonoBehaviour
         {
             activeInventory = !activeInventory;
             inventoryPanel.SetActive(activeInventory);
-
-            // 마우스 왼쪽 버튼으로 slot을 클릭하면 정보를 확인할 수 있다.
-            // 더블클릭 혹은 스페이스를 누르면 장착/사용 할 수 있다.  
-            // 인벤토리가 활성화 된 경우에
         }
+        // 인벤토리가 활성화 된 경우에
+        // 마우스 왼쪽 버튼으로 slot을 클릭하면 정보를 확인할 수 있다.
+        // 더블클릭 혹은 스페이스를 누르면 장착/사용 할 수 있다.  
         if (activeInventory)
         {
+            // 아이템 슬롯에 보유 아이템을 띄운다. (아이템 활성화)
             ShowItem();
-
-            // 스페이스 혹은 엔터를 떼면
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return))
-            {
-                // 다시 방향키를 사용할 수 있다. 
-                preventExec = false;
-            }
         }
     }
 
@@ -88,44 +77,46 @@ public class Inventory : MonoBehaviour
             slots[i].gameObject.SetActive(true); 
             // slots 배열에 소지한 아이템을 넣음. 
             slots[i].AddItem(inventoryItemList[i]);
-            // button 배열에 컴포넌트 할당.. Start에서 이미 한건가?
-
         }
     }
 
     // 슬롯을 마우스로 한 번 눌렀을 때 -> 아이템의 이름과 정보를 띄운다. 
-    public void OnClickButton()
+    public void OnClickButton() 
     {
-        Debug.Log("OnButtonClick 함수 호출");
         // 방금 클릭한 버튼 오브젝트를 가져와서 저장
         GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
-        // 클릭한 버튼의 번호로 selectedItem 변경
-        for (int i =0; i < inventoryItemList.Count; i++) //아이템 리스트 만큼
+        // 아이템 슬롯의 개수만큼 탐색한다. 
+        for (int i =0; i < slots.Length; i++) 
         {
-            // i번째 버튼을 눌렀다면
-            if (clickedButton.name == ("Slot" + i))
+            // 만약 보유한 아이템의 수보다 적은 인덱스(버튼의 이름)의 슬롯 버튼을 클릭했을 때,
+            // 클릭한게 i번째라면 (버튼 오브젝트의 이름을 미리 변경)
+            if ((i < inventoryItemList.Count) && (clickedButton.name == ("Slot" + i)))
             {
+                // 선택한 아이템의 인덱스를 i로 바꾸어 주고
                 selectedItem = i;
+                // selectedItem 번째의 슬롯으로 아이템 이름 및 설명 텍스트 바꾼다. 
+                PrintText();
             }
-            else
+            // 선택한 버튼이 아이템의 수보다 적은 인덱스의 슬롯 버튼일 때, 
+            else if (clickedButton.name == ("Slot" + i))
             {
-                // 아이템 이름과 텍스트 창을 비움
+                // 빈 텍스트를 나타낸다. 
                 PrintEmptyText();
             }
         }
-        // selectedItem 번째의 슬롯으로 아이템 이름 및 설명 텍스트 바꾸기
-        PrintText();
     }
 
     // 아이템 이름과 설명 텍스트를 공백으로
     public void PrintEmptyText()
     {
+        Debug.Log("PrintEmptyText 호출");
         NameText.text = " ";
         DescriptionText.text = " ";
     }
     // 아이템 이름과 설명을 선택한 아이템의 것으로
     public void PrintText()
     {
+        Debug.Log("PrintText 호출");
         NameText.text = inventoryItemList[selectedItem].itemName; 
         DescriptionText.text = inventoryItemList[selectedItem].itemDescription; 
     }
