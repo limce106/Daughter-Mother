@@ -24,8 +24,6 @@ public class PickUpItem : MonoBehaviour
         {
             // 대화창을 활성화 시킨다.
             chatManager.Action("어쩌구저쩌구");
-            // 다시 스페이스를 눌러서 비활성화 시켜도 아이템이 사라지지는 않음.
-            // 이후에 아이템과 단순 오브젝트를 나누어서 구현할 것.
         }
     }
 
