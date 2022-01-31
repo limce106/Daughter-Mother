@@ -6616,7 +6616,7 @@ MonoBehaviour:
   attackDistance: 0
   moveSpeed: 0
   attackPower: 1
-  hp: 0
+  hp: 1
   maxHp: 0
   memory: {fileID: 0}
 --- !u!1 &1946193918
