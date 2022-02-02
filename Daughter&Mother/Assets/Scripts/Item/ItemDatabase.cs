@@ -8,6 +8,7 @@ public class ItemDatabase : MonoBehaviour
     // itemList에 아이템들을 등록함
     public List<Item> itemList = new List<Item>();
     // objList에 습득 불가능한 배경 오브젝트들을 등록
+    public List<Stuff> stuffList = new List<Stuff>();
     // PlayerStat
     private PlayerStat thePlayerStat;
 
@@ -25,11 +26,39 @@ public class ItemDatabase : MonoBehaviour
         itemList.Add(new Item(8, "빵", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Potion));
         itemList.Add(new Item(9, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
         itemList.Add(new Item(10, "쿠키", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Potion));
+        
+        // Stuff 리스트에 오브젝트 추가 (Add) 
+        // Bedroom
+        stuffList.Add(new Stuff(100, "일기장", "책상위에 알록달록한 필통과 그림일기장이 놓여있다."));
+        stuffList.Add(new Stuff(101, "쓰레기통", "지우개 가루와 눈높이 학습지가 버려져있다."));
+        stuffList.Add(new Stuff(102, "침대", "방금까지 자고 일어난 침대이다."));
+        stuffList.Add(new Stuff(103, "스탠드", "잠 자기 전에 켜놓는 노란빛의 스탠드이다."));
+        // Kitchen
+        stuffList.Add(new Stuff(104, "냉장고", "냉장고 안에 생크림 케이크 조각이 있다."));
+        stuffList.Add(new Stuff(105, "이름", "설명"));
+        stuffList.Add(new Stuff(106, "이름", "설명"));
+        stuffList.Add(new Stuff(107, "이름", "설명"));
+        stuffList.Add(new Stuff(108, "이름", "설명"));
+        stuffList.Add(new Stuff(109, "이름", "설명"));
+        stuffList.Add(new Stuff(110, "이름", "설명"));
+        stuffList.Add(new Stuff(111, "이름", "설명"));
+        stuffList.Add(new Stuff(112, "이름", "설명"));
+        stuffList.Add(new Stuff(113, "이름", "설명"));
+        stuffList.Add(new Stuff(114, "이름", "설명"));
+        stuffList.Add(new Stuff(115, "이름", "설명"));
+        stuffList.Add(new Stuff(116, "이름", "설명"));
+        stuffList.Add(new Stuff(117, "이름", "설명"));
+        stuffList.Add(new Stuff(118, "이름", "설명"));
+        stuffList.Add(new Stuff(119, "이름", "설명"));
+        stuffList.Add(new Stuff(120, "이름", "설명"));
+        stuffList.Add(new Stuff(121, "이름", "설명"));
+        stuffList.Add(new Stuff(122, "이름", "설명"));
+        stuffList.Add(new Stuff(123, "이름", "설명"));
+        stuffList.Add(new Stuff(124, "이름", "설명"));
     }
 
     public void Update() 
     {
-        // 왜 자꾸 20이 나오는 거야?
         Debug.Log("itemList.Count : " + itemList.Count);
     }
 

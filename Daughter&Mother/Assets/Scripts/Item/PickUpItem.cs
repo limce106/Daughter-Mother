@@ -23,15 +23,29 @@ public class PickUpItem : MonoBehaviour
     {
         if (isPickUp && Input.GetKeyDown(KeyCode.Space))
         {
-            // 게임오브젝트가 무엇인지에 따라서 .... 어떤 대화창을 활성화 시킬지 - if 문
-            // 대화창을 활성화 시킨다. 
-            chatManager.ActionItemDesc(itemID); 
-            // if (비활성화 되었을 때) -> 스페이스로 활성화 시킨 후 다시 비활 시킨 것. 
-            if (chatManager.isAction == false)
+            // 아이템의 종류에 따라 (장착 가능 여부) 대화창을 활성화 시킨다. 
+            if (itemID > 0)
             {
-                // 단순 오브젝트라면 아이템이 사라지지 않음. 
-                // item에 해당할 경우!! 
-                PickUp();
+                // 장비가능한 item 의 ID는 0~99
+                if (itemID < 100)
+                {
+                    chatManager.ActionItemDesc(itemID);
+                    // if (비활성화 되었을 때) -> 스페이스로 활성화 시킨 후 다시 비활 시킨 것. 
+                    if (chatManager.isAction == false)
+                    {
+                        // 인벤토리에 넣고 아이템 삭제
+                        PickUp();
+                    }
+                }
+                // 장비불가능한 stuff의 ID는 100~
+                else
+                {
+                    chatManager.ActionStuffDesc(itemID);
+                }
+            }
+            else
+            {
+                Debug.LogError("유효하지 않은 아이템 ID 입니다.");
             }
         }
     }
