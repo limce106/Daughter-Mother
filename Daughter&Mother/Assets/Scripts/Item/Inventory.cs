@@ -71,16 +71,25 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // 아이템 활성화 (invenrotyItemList에 아이템들을 넣어줌)
+    // 아이템 슬롯 초기화 (invenrotyItemList에 아이템들을 넣어서 화면에 보여줌)
     public void ShowItem()
-    {
-        // 인벤토리 아이템 리스트의 내용을, 인벤토리 슬롯에 추가 
-        for(int i = 0; i < inventoryItemList.Count; i++) // 소지한 아이템의 개수만큼
+    {   
+        for(int i = 0; i < 11; i++) // 아이템 슬롯의 개수는 총 12개
         {
-            // 활성화
-            slots[i].gameObject.SetActive(true); 
-            // slots 배열에 소지한 아이템을 넣음. 
-            slots[i].AddItem(inventoryItemList[i]);
+            // 인벤토리 아이템 리스트의 내용을, 인벤토리 슬롯에 추가 
+            if (i < inventoryItemList.Count)
+            {
+                // 활성화
+                slots[i].gameObject.SetActive(true);
+                // slots 배열에 소지한 아이템의 정보(Icon)을 넣음
+                slots[i].AddItem(inventoryItemList[i]);
+            }
+            else
+            {
+                // 가지고 있는 아이템의 개수보다 남는 슬롯의 아이콘은 지워줌. 
+                slots[i].RemoveItem();
+            }
+
         }
     }
 
@@ -101,6 +110,7 @@ public class Inventory : MonoBehaviour
                 selectedItem = i;
                 // selectedItem 번째의 슬롯으로 아이템 이름 및 설명 텍스트 바꾼다. 
                 PrintText();
+                break;
             }
             // 보유한 아이템의 수보다 작은 인덱스의 슬롯 버튼을 클릭하였고
             // 클릭한게 i 번째이면서
@@ -108,19 +118,31 @@ public class Inventory : MonoBehaviour
             else if ((i < inventoryItemList.Count) && (clickedButton.name == ("Slot" + i) && (i == selectedItem)))
             {
                 // 제대로 실행 되는지 TEST
-                NameText.text = "장비를 착용합니다. "; 
+                NameText.text = "장비를 착용합니다."; 
+                theDatabase.UseItem(inventoryItemList[i].itemID);
+
+
                 // InventoyItemList[i]의 itemType에 따라서
                 // 장비일 경우 플레이어의 stat - 장비에 추가, 플레이어의 공격력 증가, 이미지를 인벤토리에 띄움
                 // 방어구일 결우 플레이어의 stat - 방어구에 추가, 플레이어의 방어력 증가, 이미지를 인벤토리에 띄움
                 // 소모품일 경우 플레이어의 stat - HP를 수치만큼 증가하고 InventoryItemList에서 삭제함
+
+                // 더블 클릭한 아이템이 Potion인 경우에만 인벤토리에서 삭제
+                if (inventoryItemList[selectedItem].itemType == Item.ItemType.Potion)
+                {
+                    inventoryItemList.RemoveAt(i);
+                    ShowItem();
+                }
+                break;
             }
-            // 선택한 버튼이 아이템의 수보다 적은 인덱스의 슬롯 버튼일 때, 
+            // 선택한 버튼이 아이템의 수보다 큰 인덱스의 슬롯 버튼일 때, (빈 슬롯 클릭)
             else if (clickedButton.name == ("Slot" + i))
             {
                 // 빈 텍스트를 나타낸다. 
                 PrintEmptyText();
                 // 선택된 아이템 X (아이템 슬롯 한번 누르고 -> 빈 슬롯 누르고 -> 다시 같은 아이템 눌렀을 때 장비되는 것 막기 위함)
                 selectedItem = -1;
+                break;
             }
         }
     }
