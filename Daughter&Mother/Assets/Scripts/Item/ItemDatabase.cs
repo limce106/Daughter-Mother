@@ -4,28 +4,37 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
+    /* ID 0~99 : 습득가능한 아이템, 100~999 : 습득불가능한 오브젝트, 1001~1003 : 쪽지 */
     // 아이템 리스트
     // itemList에 아이템들을 등록함
     public List<Item> itemList = new List<Item>();
     // objList에 습득 불가능한 배경 오브젝트들을 등록
     public List<Stuff> stuffList = new List<Stuff>();
+    // 쪽지 리스트 (총 3개의 쪽지를 얻어야 함.)
+    public List<Note> NoteList = new List<Note>();
+
     // PlayerStat
     private PlayerStat thePlayerStat;
 
     private void Start() {
+        // 쪽지 리스트에 쪽지 추가 (Add)
+       NoteList.Add(new Note(1001, PlayerPrefs.GetString("Name") + "아 엄마는 놀이터에 있어\n엄마를 찾으러 와줄래?"));
+       NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? "));
+       NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?"));
+
         // PlayerStat 스크립트
         thePlayerStat = FindObjectOfType<PlayerStat>();
         // 아이템 리스트에 아이템 추가 (Add)
-        itemList.Add(new Item(1, "마법봉장난감", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.\n\n공격력 +15", Item.ItemType.Weapon));
-        itemList.Add(new Item(2, "국자", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.\n\n공격력 +10", Item.ItemType.Weapon));
-        itemList.Add(new Item(3, "가위", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Weapon));
-        itemList.Add(new Item(4, "낡은 옷", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Shield));
-        itemList.Add(new Item(5, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Shield));
-        itemList.Add(new Item(6, "싸구려 목걸이", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Shield));
-        itemList.Add(new Item(7, "사과", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Potion));
-        itemList.Add(new Item(8, "빵", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Potion));
-        itemList.Add(new Item(9, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", Item.ItemType.Potion));
-        itemList.Add(new Item(10, "쿠키", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", Item.ItemType.Potion));
+        itemList.Add(new Item(0, "마법봉장난감", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.\n\n공격력 +15", 15, Item.ItemType.Weapon));
+        itemList.Add(new Item(1, "국자", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.\n\n공격력 +10", 10, Item.ItemType.Weapon));
+        itemList.Add(new Item(2, "가위", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Weapon));
+        itemList.Add(new Item(3, "낡은 옷", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 10, Item.ItemType.Shield));
+        itemList.Add(new Item(4, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 15, Item.ItemType.Shield));
+        itemList.Add(new Item(5, "싸구려 목걸이", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Shield));
+        itemList.Add(new Item(6, "사과", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 10, Item.ItemType.Potion));
+        itemList.Add(new Item(7, "빵", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Potion));
+        itemList.Add(new Item(8, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", 25, Item.ItemType.Potion));
+        itemList.Add(new Item(9, "쿠키", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 30, Item.ItemType.Potion));
         
         // Stuff 리스트에 오브젝트 추가 (Add) 
         // Bedroom
@@ -68,45 +77,61 @@ public class ItemDatabase : MonoBehaviour
         switch (_itemID)
         {
             // 무기
-            case 1: // 마법봉 장난감
-                // 스탯을 조정하는 코드
-                thePlayerStat.AKT = 15;
+            case 0: // 마법봉 장난감
+                WearWeapon(0);
                 break;
-            case 2: // 국자
-                thePlayerStat.AKT = 10;
+            case 1: // 국자
+                WearWeapon(1);
                 break;
-            case 3: // 가위
+            case 2: // 가위
+                WearWeapon(2);
                 break;
             // 방어구
-            case 4: // 낡은 옷
+            case 3: // 낡은 옷
+                WearShield(3);
                 break;
-            case 5: // 장난감 방패
+            case 4: // 장난감 방패
+                WearShield(4);
                 break;
-            case 6: // 싸구려 목걸이
+            case 5: // 싸구려 목걸이
+                WearShield(5);
                 break;
             // 체력회복아이템
-            case 7: // 사과
+            case 6: // 사과
                 UsePotion(10);
                 break;
-            case 8: // 빵
+            case 7: // 빵
                 UsePotion(15);
                 break;
-            case 9: // 사탕
+            case 8: // 사탕
                 UsePotion(20);
                 break;
-            case 10: // 쿠키
+            case 9: // 쿠키
                 UsePotion(30);
                 break;
         }
     }
 
+    // 무기 착용했을 때
+    public void WearWeapon(int id)
+    {
+        thePlayerStat.AKT = itemList[id].itemValue;
+        PlayerStat.instance.weapon = itemList[id];
+    }
+    // 방어구 착용했을 때
+    public void WearShield(int id) 
+    {
+        thePlayerStat.DEF = itemList[id].itemValue;
+        PlayerStat.instance.shield = itemList[id];
+    }
+    
     // 체력회복아이템 먹었을 때 플레이어 스탯 조정
-    public void UsePotion(int power)
+    public void UsePotion(int id)
     {
         // 아이템 복용 후 플레이어의 최대 HP를 넘으면 안된다. 
-        if (thePlayerStat.HP >= thePlayerStat.currentHP + power)
+        if (thePlayerStat.HP >= thePlayerStat.currentHP + itemList[id].itemValue) 
         {
-            thePlayerStat.currentHP += power;
+            thePlayerStat.currentHP += itemList[id].itemValue;
         }
         else
         {

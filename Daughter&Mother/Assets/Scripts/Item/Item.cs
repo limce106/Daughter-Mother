@@ -9,6 +9,7 @@ public class Item
 {
     // 아이템 속성
     public int itemID; // 아이템 ID (이미지 파일의 이름)
+    public int itemValue;
     public string itemName; //아이템 이름 (한글로)
     public string itemDescription; //아이템 설명(대화창, 인벤토리창)
     public Sprite itemIcon; //아이템 이미지
@@ -23,12 +24,13 @@ public class Item
     }
 
     // 생성자
-    public Item(int _itemID, string _itemName, string _itemDescription, ItemType _itemType) 
+    public Item(int _itemID, string _itemName, string _itemDescription, int _itemValue, ItemType _itemType) 
     { 
         // 아이템 속성 초기화 
         itemID = _itemID;
         itemName = _itemName;
         itemDescription = _itemDescription;
+        itemValue = _itemValue;
         itemType = _itemType;
         // resources 파일 내부에 있는 파일의 이름 = 아이템의 이름
         // resources 파일에 있는 이미지를 가져온다. 

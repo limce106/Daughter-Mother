@@ -94,5 +94,34 @@ public class ChatManager : MonoBehaviour
 
     // 3. npc(에너미)와 나우는 대화를 대화창에 띄우는 함수
     // -> 채은님
+
+    // 4. 쪽지의 내용을 대화창에 띄우는 함수
+    public void ActionNoteCont(int _itemID) // 아이템 객체를 인자로 받아서 
+    {
+        // Space를 눌렀을 때 (PickUpItem 스크립트)
+        // 대화창이 활성화 되어있다면 
+        if (isAction)
+        {
+            isAction = false; //대화창 비활성화
+        }
+        // 대화창이 비활성화 되어 있다면
+        else
+        {
+            // 데이터베이스 검색 
+            // 데이터 베이스의 아이템 리스트 크기만큼 반복하며 ID를 찾음
+            for (int i = 1001; i < (theDatabase.NoteList.Count + 1001); i++)
+            {
+                if (_itemID == theDatabase.NoteList[i-1001].noteID) //베이스에서 ID를 찾으면
+                {
+                    isAction = true; // 대화창 활성화
+                    // 해당 아이템ID에 맞는 이름과 설명을 대화창에 출력
+                    talkText.text = theDatabase.NoteList[i-1001].noteContent;
+                    break;
+                }
+            }
+        }
+        // 대화창 이미지도 같이 활/비활성화
+        talkPanel.SetActive(isAction);
+    }
 }
  

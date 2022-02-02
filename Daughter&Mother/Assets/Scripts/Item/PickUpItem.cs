@@ -11,6 +11,8 @@ public class PickUpItem : MonoBehaviour
     public Text pickUpText;
     // 대화창 띄울 변수
     public ChatManager chatManager;
+    // 아이템데이터베이스에 접근
+    public ItemDatabase theDatabase;
 
 
     void Start() 
@@ -24,7 +26,7 @@ public class PickUpItem : MonoBehaviour
         if (isPickUp && Input.GetKeyDown(KeyCode.Space))
         {
             // 아이템의 종류에 따라 (장착 가능 여부) 대화창을 활성화 시킨다. 
-            if (itemID > 0)
+            if (itemID >= 0)
             {
                 // 장비가능한 item 의 ID는 0~99
                 if (itemID < 100)
@@ -34,13 +36,22 @@ public class PickUpItem : MonoBehaviour
                     if (chatManager.isAction == false)
                     {
                         // 인벤토리에 넣고 아이템 삭제
-                        PickUp();
+                        PickUp(); 
                     }
                 }
-                // 장비불가능한 stuff의 ID는 100~
-                else
+                // 장비불가능한 stuff의 ID는 100~999
+                else if (itemID < 1001)
                 {
                     chatManager.ActionStuffDesc(itemID);
+                }
+                // 쪽지의 ID는 1001 ~ 1003
+                else
+                {
+                    chatManager.ActionNoteCont(itemID);
+                    if (chatManager.isAction == false)
+                    {
+                        PickUpNote();
+                    }
                 }
             }
             else
@@ -76,6 +87,15 @@ public class PickUpItem : MonoBehaviour
             Inventory.instance.GetAnItem(itemID);
             // 아이템 삭제
             Destroy(gameObject);
+    }
+
+    // 쪽지를 인벤토리 장비창에 위치시킨다.
+    void PickUpNote()
+    {
+        // 현재 노트를 저장
+        Inventory.instance.GetANote(itemID);
+        // 아이템 삭제
+        Destroy(gameObject);
     }
 
 }

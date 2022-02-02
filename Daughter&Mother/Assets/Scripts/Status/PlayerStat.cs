@@ -12,6 +12,8 @@ public class PlayerStat : MonoBehaviour
     public int currentHP;
     public int AKT;
     public int DEF;
+    public Item weapon; 
+    public Item shield; 
 
     void Start() 
     {
