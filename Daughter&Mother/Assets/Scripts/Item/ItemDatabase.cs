@@ -5,8 +5,9 @@ using UnityEngine;
 public class ItemDatabase : MonoBehaviour
 {
     // 아이템 리스트
-    // 이 곳에 아이템들을 등록함
+    // itemList에 아이템들을 등록함
     public List<Item> itemList = new List<Item>();
+    // objList에 습득 불가능한 배경 오브젝트들을 등록
     // PlayerStat
     private PlayerStat thePlayerStat;
 

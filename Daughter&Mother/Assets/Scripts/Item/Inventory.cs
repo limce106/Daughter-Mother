@@ -133,6 +133,7 @@ public class Inventory : MonoBehaviour
                     inventoryItemList.RemoveAt(i);
                     ShowItem();
                 }
+
                 break;
             }
             // 선택한 버튼이 아이템의 수보다 큰 인덱스의 슬롯 버튼일 때, (빈 슬롯 클릭)
