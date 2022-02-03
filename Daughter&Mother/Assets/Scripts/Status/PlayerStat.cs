@@ -22,7 +22,6 @@ public class PlayerStat : MonoBehaviour
     void Start() 
     {
         instance = this;
-        currentHP = HP;
     }
 
     // Enemy에게 공격당했을 때

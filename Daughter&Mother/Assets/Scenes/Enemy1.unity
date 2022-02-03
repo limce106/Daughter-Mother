@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 30
-  currentHP: 0
+  currentHP: 10
   AKT: 0
   DEF: 0
   weapon:
