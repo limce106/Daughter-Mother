@@ -18,14 +18,14 @@ public class ItemDatabase : MonoBehaviour
 
     private void Start() {
         // 쪽지 리스트에 쪽지 추가 (Add)
-       NoteList.Add(new Note(1001, PlayerPrefs.GetString("Name") + "아 엄마는 놀이터에 있어\n엄마를 찾으러 와줄래?"));
-       NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? "));
-       NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?"));
+       NoteList.Add(new Note(1001, PlayerPrefs.GetString("Name") + "아 엄마는 놀이터에 있어\n엄마를 찾으러 와줄래?", false));
+       NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? ", false));
+       NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?", false));
 
         // PlayerStat 스크립트
         thePlayerStat = FindObjectOfType<PlayerStat>();
         // 아이템 리스트에 아이템 추가 (Add)
-        itemList.Add(new Item(0, "마법봉장난감", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.\n\n공격력 +15", 15, Item.ItemType.Weapon));
+        itemList.Add(new Item(0, "마법봉장난감", PlayerPrefs.GetString("Name") + "이가 제일 좋아하는 마법봉 장난감이다. \n\n공격력 +15", 15, Item.ItemType.Weapon));
         itemList.Add(new Item(1, "국자", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.\n\n공격력 +10", 10, Item.ItemType.Weapon));
         itemList.Add(new Item(2, "가위", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Weapon));
         itemList.Add(new Item(3, "낡은 옷", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 10, Item.ItemType.Shield));

@@ -323,6 +323,7 @@ MonoBehaviour:
   talkText: {fileID: 1629532028}
   item: {fileID: 0}
   talkPanel: {fileID: 526995793}
+  theDatabase: {fileID: 0}
 --- !u!1 &722269926
 GameObject:
   m_ObjectHideFlags: 0
