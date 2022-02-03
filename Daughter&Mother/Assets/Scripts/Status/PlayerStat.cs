@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -13,11 +14,15 @@ public class PlayerStat : MonoBehaviour
     public int AKT;
     public int DEF;
     public Item weapon; 
-    public Item shield; 
+    public Item shield;
+
+    //체력바
+    public Slider hpSlider;
 
     void Start() 
     {
         instance = this;
+        currentHP = HP;
     }
 
     // Enemy에게 공격당했을 때
@@ -40,5 +45,10 @@ public class PlayerStat : MonoBehaviour
 
         // 데미지 입었을 때 음향, 이미지 효과들 적용
 
+    }
+    void Update()
+    {
+        hpSlider.maxValue = HP;
+        hpSlider.value = currentHP;
     }
 }
