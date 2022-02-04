@@ -49,6 +49,8 @@ public class ChatManager : MonoBehaviour
     {
         talkPanel.SetActive(false);
         theDatabase = FindObjectOfType<ItemDatabase>(); // ItemDataBase 스크립트
+        ShowDialogue();
+        PlayerController.instance.chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Update()
@@ -149,7 +151,9 @@ public class ChatManager : MonoBehaviour
             //if ()
             //{
             //    talkPanel.SetActive(true);
-            //    talkText.text = talkData[4];
+            //    talkText.text = talkData[4];\
+            // 
+            //    Inventory.instance.currentNote.getNote = false;
             //}
 
             // 마법봉을 주으면

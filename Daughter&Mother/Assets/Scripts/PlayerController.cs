@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        // 씬이 바뀔 때마다 chatManager를 갱신해줘야 되잖아... -> Door에서? 일단 Update에서
+        // 씬이 바뀔 때마다 chatManager를 갱신해줘야 되잖아... -> chatManager의 Start에서
         chatManager = GameObject.FindObjectOfType<ChatManager>();
         instance = this;
     }
@@ -64,8 +64,6 @@ public class PlayerController : MonoBehaviour
         Move();
         Attack();
         ChangeObject();
-        // 씬이 바뀔때만 갱신하고 싶은데...
-        chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Move()
@@ -74,13 +72,13 @@ public class PlayerController : MonoBehaviour
         playerMoving = false;
         playerAttacking = false;
 
-        // 대화창이 활성화된 상태라면 플레이어는 움직이지 않는다.
-        if (chatManager.isAction)
+        // 대화창, 인벤토리가 활성화된 상태라면 플레이어는 움직이지 않는다.
+        if ((chatManager.isAction)||(Inventory.instance.activeInventory))
         {
             playerMoving = false;
             Debug.Log(chatManager.isAction);
         }
-        else if (chatManager.isAction == false) //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
+        else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
         {
             Debug.Log("움직인다 = chatManager가 false 이다..."); 
             // 좌우로 움직이기
