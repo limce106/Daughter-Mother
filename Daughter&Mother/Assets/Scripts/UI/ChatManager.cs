@@ -77,6 +77,7 @@ public class ChatManager : MonoBehaviour
             // 데이터 베이스의 아이템 리스트 크기만큼 반복하며 ID를 찾음
             for (int i = 100; i < (theDatabase.stuffList.Count + 100); i++)
             {
+                Debug.Log("여기가문제");
                 if (_itemID == theDatabase.stuffList[i - 100].stuffID) //베이스에서 ID를 찾으면
                 {
                     isAction = true; // 대화창 활성화

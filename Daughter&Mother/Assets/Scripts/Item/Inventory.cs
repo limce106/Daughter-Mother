@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
 
     /* 장비창 (HP, 공격력, 방어력) */
     public Text UserNameText; // 플레이어가 지정한 캐릭터 이름
-    // HP 구현하기
+    public Text HPText; // 플레이어 HP
     public Image weaponIcon; // 플레이어가 현재 장착한 무기 아이콘
     public Image shieldIcon; // 플레이어가 현재 장착한 방어구 아이콘
     public Image noteIcon; // 플레이어가 현재 습득한 쪽지의 아이콘
@@ -44,14 +44,15 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item>(); //인벤토리 아이템 리스트 초기화
         slots = tf.GetComponentsInChildren<InventorySlot>(); // 그리드의 자식객체인 slot들이 배열 slots에 들어감
         theDatabase = FindObjectOfType<ItemDatabase>(); // ItemDataBase 스크립트
-        NameText.text = PlayerPrefs.GetString("Name"); // 플레이어 이름 
-        noteIcon.sprite = currentNote.noteIcon; //
+        UserNameText.text = PlayerPrefs.GetString("Name"); // 플레이어 이름 
+        noteIcon.sprite = currentNote.noteIcon; // 쪽지 이미지는 한번 획득하면 바뀌지 X
 
         inventoryPanel.SetActive(activeInventory); //인벤토리 UI 활성화 여부
     }
 
     void Update()
     {
+        HPText.text = "체력 : " + PlayerStat.instance.currentHP.ToString(); 
 
         // 키보드 C를 눌러서 인벤토리 UI를 열고닫는다. 
         if (Input.GetKeyDown(KeyCode.C))

@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         // 씬이 바뀔 때마다 chatManager를 갱신해줘야 되잖아... -> chatManager의 Start에서
+        // 만약에 dontDestroy 로 한다면 갱신하지 않아도 되겠지... but 걸리는게 너무 많지 않아?
         chatManager = GameObject.FindObjectOfType<ChatManager>();
         instance = this;
     }
@@ -79,7 +80,6 @@ public class PlayerController : MonoBehaviour
         }
         else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
         {
-            Debug.Log("움직인다 = chatManager가 false 이다..."); 
             // 좌우로 움직이기
             if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
             {
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
     void ChangeObject()
     {
         // 플레이어가 무기를 장착했다면
-        if(PlayerStat.instance.weapon != null)
+        if(PlayerStat.instance.weapon != PlayerStat.instance.emptyItem)
         {
             anim.SetBool("isChange", true);
             PlayerStat.instance.AKT = 5;

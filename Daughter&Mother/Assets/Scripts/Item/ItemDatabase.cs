@@ -21,16 +21,16 @@ public class ItemDatabase : MonoBehaviour
        NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?", false));
 
         // 아이템 리스트에 아이템 추가 (Add)
-        itemList.Add(new Item(0, "마법봉장난감", PlayerPrefs.GetString("Name") + "이가 제일 좋아하는 마법봉 장난감이다. \n\n공격력 +15", 15, Item.ItemType.Weapon));
-        itemList.Add(new Item(1, "국자", "달고나 만들 때 유용한 국자이다. \n\n공격력 +10", 10, Item.ItemType.Weapon));
-        itemList.Add(new Item(2, "가위", "문방구에 있던 새 가위이다. \n\n공격력 +10", 20, Item.ItemType.Weapon));
-        itemList.Add(new Item(3, "낡은 옷", "산타클로스 무늬가 있는 빨간 스웨터이다. \n\n방어력 +10", 10, Item.ItemType.Shield));
-        itemList.Add(new Item(4, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다. \n\n방어력", 15, Item.ItemType.Shield));
-        itemList.Add(new Item(5, "싸구려 목걸이", "문방구에서 뽑기를 하면 얻을 수 있는 목걸이다. \n\n방어력", 20, Item.ItemType.Shield));
-        itemList.Add(new Item(6, "사과", "먹음직스러워 보이는 잘익은 사과이다. \n\n체력", 10, Item.ItemType.Potion));
-        itemList.Add(new Item(7, "빵", "쓰레기통 근처에 떨어져 있었던 빵이다. \n\n체력", 20, Item.ItemType.Potion));
-        itemList.Add(new Item(8, "사탕", "놀이터 한 가운데에 떨어져 있던 딸기맛 사탕이다. \n\n체력", 25, Item.ItemType.Potion));
-        itemList.Add(new Item(9, "쿠키", "안촉촉한초코칩나라의 초코쿠키이다. \n\n체력", 30, Item.ItemType.Potion));
+        itemList.Add(new Item(0, "마법봉장난감", PlayerPrefs.GetString("Name") + "(이)가 제일 좋아하는 마법봉 장난감이다. \n\n공격력 +15", 15, Item.ItemType.Weapon, false));
+        itemList.Add(new Item(1, "국자", "달고나 만들 때 유용한 국자이다. \n\n공격력 +10", 10, Item.ItemType.Weapon, false));
+        itemList.Add(new Item(2, "가위", "문방구에 있던 새 가위이다. \n\n공격력 +10", 20, Item.ItemType.Weapon, false));
+        itemList.Add(new Item(3, "낡은 옷", "산타클로스 무늬가 있는 빨간 스웨터이다. \n\n방어력 +10", 10, Item.ItemType.Shield, false));
+        itemList.Add(new Item(4, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다. \n\n방어력", 15, Item.ItemType.Shield, false));
+        itemList.Add(new Item(5, "싸구려 목걸이", "문방구에서 뽑기를 하면 얻을 수 있는 목걸이다. \n\n방어력", 20, Item.ItemType.Shield, false));
+        itemList.Add(new Item(6, "사과", "먹음직스러워 보이는 잘익은 사과이다. \n\n체력", 10, Item.ItemType.Potion, false));
+        itemList.Add(new Item(7, "빵", "쓰레기통 근처에 떨어져 있었던 빵이다. \n\n체력", 20, Item.ItemType.Potion, false));
+        itemList.Add(new Item(8, "사탕", "놀이터 한 가운데에 떨어져 있던 딸기맛 사탕이다. \n\n체력", 25, Item.ItemType.Potion, false));
+        itemList.Add(new Item(9, "쿠키", "안촉촉한초코칩나라의 초코쿠키이다. \n\n체력", 30, Item.ItemType.Potion, false));
         
         // Stuff 리스트에 오브젝트 추가 (Add) 
         // Bedroom
@@ -106,16 +106,16 @@ public class ItemDatabase : MonoBehaviour
                 break;
             // 체력회복아이템
             case 6: // 사과
-                UsePotion(10);
+                UsePotion(6);
                 break;
             case 7: // 빵
-                UsePotion(15);
+                UsePotion(7);
                 break;
             case 8: // 사탕
-                UsePotion(20);
+                UsePotion(8);
                 break;
             case 9: // 쿠키
-                UsePotion(30);
+                UsePotion(9);
                 break;
         }
     }

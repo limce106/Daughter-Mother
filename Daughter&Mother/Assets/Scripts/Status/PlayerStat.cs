@@ -16,14 +16,17 @@ public class PlayerStat : MonoBehaviour
     public Item weapon; 
     public Item shield; 
 
+    // 빈 장비 (착용 전)
+    public Item emptyItem;
+
     //체력바
     public Slider hpSlider;
 
-    void Start() 
+    void Start()
     {
+        emptyItem = new Item(-1, "", "", 0, Item.ItemType.Weapon, false);
         instance = this;
-        weapon = null;
-        shield = null;
+        weapon = emptyItem;
     }
 
     // Enemy에게 공격당했을 때

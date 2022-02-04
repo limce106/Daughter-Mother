@@ -17,8 +17,20 @@ public class PickUpItem : MonoBehaviour
 
     void Start() 
     {
+        // 초기화
+        theDatabase = FindObjectOfType<ItemDatabase>();
+        chatManager = FindObjectOfType<ChatManager>();
         // 아이템에 가까워지면 space를 누르라는 안내 문구 비활
         pickUpText.gameObject.SetActive(false);
+        // 아이템의 isGet이 true일 경우, destroy
+        if ((itemID >= 0) && (itemID < 10))
+        {
+            if (theDatabase.itemList[itemID].isGet == true)
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 
     void Update() 
@@ -71,6 +83,7 @@ public class PickUpItem : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Player"))
         {
+            Debug.Log(gameObject.transform.position);
             pickUpText.gameObject.SetActive(true);
             isPickUp = true;
         }
@@ -90,6 +103,11 @@ public class PickUpItem : MonoBehaviour
     {
             // 인벤토리에 추가
             Inventory.instance.GetAnItem(itemID);
+        // 아이템 리스트의 isGet을 true로 바꿈 (-> 같은 씬에 다시 들어가더라도 화면에 띄우지X)
+        if ((itemID >= 0) && (itemID < 10))
+        {
+            theDatabase.itemList[itemID].isGet = true;
+        }
             // 아이템 삭제
             Destroy(gameObject);
     }

@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        // DontDestroyOnLoad(this.gameObject); // 게임 오브젝트 파괴금지
+        // DontDestroyOnLoad(this.gameObject); // 게임 오브젝트 파괴금지 -> 로드에서만 쓸거니까
         // 2월4일 수정
         target = GameObject.Find("Player");
     }
@@ -23,10 +23,13 @@ public class CameraController : MonoBehaviour
         // 대상이 있는지 체크
         if (target.gameObject != null)
         {
+            // 플레이어의 위치값 설정
             // this는 카메라를 의미 (z값은 카메라값을 그대로 유지) 
             targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);
 
             // vectorA -> B까지 T의 속도로 이동
+            // 타겟의 위치로... 즉 카메라의 중심이 플레이어
+            // 1초에 movespeed 만큼 이동
             this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
     }

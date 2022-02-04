@@ -20,6 +20,6 @@ public class Note
         noteContent = _noteContent;
         getNote = _getNote;
         // resources 파일에 있는 letter 이미지를 가져온다. 
-        noteIcon = Resources.Load("letter", typeof(Sprite)) as Sprite;
+        noteIcon = Resources.Load("letter", typeof(Sprite)) as Sprite; 
     }
 }

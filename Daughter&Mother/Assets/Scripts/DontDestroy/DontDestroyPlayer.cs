@@ -15,7 +15,6 @@ public class DontDestroyPlayer : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             // 플레이어의 위치 지정
             gameObject.transform.position = new Vector3(0, 0, 0);
-            Debug.Log(gameObject.transform.position);
         }
         // 오브젝트가 하나 이상이라면 생성된 게임 오브젝트를 파괴
         else
