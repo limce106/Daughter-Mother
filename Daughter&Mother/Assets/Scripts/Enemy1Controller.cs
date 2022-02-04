@@ -167,8 +167,11 @@ public class Enemy1Controller : MonoBehaviour
             currentTime += Time.deltaTime; 
             if (currentTime > attackDelay) 
             {
-                player.GetComponent<PlayerController>().DamageAction(attackPower); 
-                print("공격"); 
+                player.GetComponent<PlayerController>().DamageAction(attackPower);
+                //공격당하면서 체력바 줄어듬
+                PlayerStat.instance.currentHP -= attackPower;
+                print("공격");
+                print(PlayerStat.instance.currentHP + "이 남았습니다"); //플레이어 Hp 나옴
                 currentTime = 0; 
 
                 // 공격 애니메이션 플레이
@@ -220,8 +223,7 @@ public class Enemy1Controller : MonoBehaviour
         }
 
         // 플레이어의 공격력만큼 에너미의 체력을 감소시킨다.
-        //hp -= hitPower;
-        PlayerStat.instance.currentHP -= hitPower;
+        hp -= hitPower;
         // 에너미의 체력이 0보다 크면 피격 상태로 전환한다.
         if (hp > 0)
         {
