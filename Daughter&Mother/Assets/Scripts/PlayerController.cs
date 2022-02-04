@@ -217,9 +217,8 @@ public class PlayerController : MonoBehaviour
 
     void ChangeObject()
     {
-        // 임의로 M을 누를 시 마법봉을 지니도록 함.
-        // 이후 인벤토리에서 마법봉 선택 시 마법봉을 지니는 애니메이션으로 변경되도록 조건을 수정해야 함.
-        if(Input.GetKeyDown(KeyCode.M))
+        // 플레이어가 무기를 장착했다면
+        if(PlayerStat.instance.weapon != null)
         {
             anim.SetBool("isChange", true);
             attackPower = 5;

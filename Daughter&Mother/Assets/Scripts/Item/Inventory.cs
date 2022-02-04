@@ -160,6 +160,7 @@ public class Inventory : MonoBehaviour
     {
         NameText.text = " ";
         DescriptionText.text = currentNote.noteContent;
+        selectedItem = NONE;
     }
 
     // 아이템 이름과 설명 텍스트를 공백으로

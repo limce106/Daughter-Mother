@@ -22,6 +22,8 @@ public class PlayerStat : MonoBehaviour
     void Start() 
     {
         instance = this;
+        weapon = null;
+        shield = null;
     }
 
     // Enemy에게 공격당했을 때

@@ -10,7 +10,7 @@ public class Note
     public int noteID; // 아이템 ID
     public string noteContent; //아이템 설명(대화창, 인벤토리창)
     public Sprite noteIcon; //아이템 이미지
-    private bool getNote; // 쪽지를 얻은 직후 true
+    public bool getNote; // 쪽지를 얻은 직후 true
 
     // 생성자
     public Note(int _noteID, string _noteContent, bool _getNote)
