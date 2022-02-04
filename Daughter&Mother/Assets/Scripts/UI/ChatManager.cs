@@ -49,6 +49,8 @@ public class ChatManager : MonoBehaviour
     {
         talkPanel.SetActive(false);
         theDatabase = FindObjectOfType<ItemDatabase>(); // ItemDataBase 스크립트
+        ShowDialogue();
+        PlayerController.instance.chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Update()
@@ -75,11 +77,6 @@ public class ChatManager : MonoBehaviour
             // 데이터 베이스의 아이템 리스트 크기만큼 반복하며 ID를 찾음
             for (int i = 100; i < (theDatabase.stuffList.Count + 100); i++)
             {
-<<<<<<< HEAD
-                Debug.Log("stuff 리스트 개수 : " + theDatabase.stuffList.Count);
-                Debug.Log("for문 도는 중~!");
-=======
->>>>>>> f54f674d490e0d0abfdb5743444ef0f39b2134ad
                 if (_itemID == theDatabase.stuffList[i - 100].stuffID) //베이스에서 ID를 찾으면
                 {
                     isAction = true; // 대화창 활성화
@@ -154,7 +151,9 @@ public class ChatManager : MonoBehaviour
             //if ()
             //{
             //    talkPanel.SetActive(true);
-            //    talkText.text = talkData[4];
+            //    talkText.text = talkData[4];\
+            // 
+            //    Inventory.instance.currentNote.getNote = false;
             //}
 
             // 마법봉을 주으면

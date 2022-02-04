@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
     public Transform tf; // Slot의 부모 객체. (그리드 슬롯) // 부모 객체의 자식 객체들 즉, slot. InventorySlot[] 안에 넣음
 
     public GameObject inventoryPanel; // 인벤토리창 UI
-    bool activeInventory = false; // 인벤토리창 활성화시 true
+    public bool activeInventory = false; // 인벤토리창 활성화시 true
 
     public ItemDatabase theDatabase; // 아이템데이터베이스에 접근
     private const int NONE = -1;  // selectedItem 이 -1일 때 : 선택한 슬롯이 없음 (슬롯은 0~11)
@@ -160,6 +160,7 @@ public class Inventory : MonoBehaviour
     {
         NameText.text = " ";
         DescriptionText.text = currentNote.noteContent;
+        selectedItem = NONE;
     }
 
     // 아이템 이름과 설명 텍스트를 공백으로

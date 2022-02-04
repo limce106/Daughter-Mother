@@ -338,18 +338,6 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37521054}
   m_Enabled: 1
-<<<<<<< HEAD
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25975718e1e746547b5980006fb2c3b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAction: 0
-  talkText: {fileID: 1629532028}
-  item: {fileID: 0}
-  talkPanel: {fileID: 526995793}
-  theDatabase: {fileID: 0}
---- !u!1 &722269926
-=======
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -369,7 +357,6 @@ BoxCollider2D:
   m_Size: {x: 3.6982698, y: 2.0291376}
   m_EdgeRadius: 0
 --- !u!1 &90647370
->>>>>>> f54f674d490e0d0abfdb5743444ef0f39b2134ad
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

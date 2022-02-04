@@ -42,17 +42,21 @@ public class PlayerController : MonoBehaviour
     // 공격 딜레이 시간
     public float attackDelay = 1f;
 
-    public GameObject Player;
-    public GameObject Enemy;
+    public GameObject Player; 
+    public GameObject Enemy; 
 
     // 대화창
     // 2월4일 수정 : 해당 씬의 chatManager를 찾아서 넣는 걸로
-    private ChatManager chatManager;
+    public ChatManager chatManager;
+
+    public static PlayerController instance;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        // 씬이 바뀔 때마다 chatManager를 갱신해줘야 되잖아... -> chatManager의 Start에서
         chatManager = GameObject.FindObjectOfType<ChatManager>();
+        instance = this;
     }
 
     void Update()
@@ -68,14 +72,13 @@ public class PlayerController : MonoBehaviour
         playerMoving = false;
         playerAttacking = false;
 
-        // 대화창이 활성화된 상태라면 플레이어는 움직이지 않는다.
-        if (chatManager.isAction)
+        // 대화창, 인벤토리가 활성화된 상태라면 플레이어는 움직이지 않는다.
+        if ((chatManager.isAction)||(Inventory.instance.activeInventory))
         {
             playerMoving = false;
-            Debug.Log("움직이지 않는다......");
             Debug.Log(chatManager.isAction);
         }
-        else if (chatManager.isAction == false) //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
+        else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
         {
             Debug.Log("움직인다 = chatManager가 false 이다..."); 
             // 좌우로 움직이기
@@ -217,9 +220,8 @@ public class PlayerController : MonoBehaviour
 
     void ChangeObject()
     {
-        // 임의로 M을 누를 시 마법봉을 지니도록 함.
-        // 이후 인벤토리에서 마법봉 선택 시 마법봉을 지니는 애니메이션으로 변경되도록 조건을 수정해야 함.
-        if(Input.GetKeyDown(KeyCode.M))
+        // 플레이어가 무기를 장착했다면
+        if(PlayerStat.instance.weapon != null)
         {
             anim.SetBool("isChange", true);
             attackPower = 5;

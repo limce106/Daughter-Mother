@@ -31,7 +31,7 @@ public class PickUpItem : MonoBehaviour
                 // 장비가능한 item 의 ID는 0~99
                 if (itemID < 100)
                 {
-                    chatManager.ActionItemDesc(itemID);
+                    chatManager.ActionItemDesc(itemID); 
                     // if (비활성화 되었을 때) -> 스페이스로 활성화 시킨 후 다시 비활 시킨 것. 
                     if (chatManager.isAction == false)
                     {
@@ -48,14 +48,14 @@ public class PickUpItem : MonoBehaviour
                 else
                 {
                     chatManager.ActionNoteCont(itemID);
+                    // 쪽지의 getNote 를 true로 변경
+                    Inventory.instance.currentNote.getNote = true;
+                    // if (비활성화 되었을 때) -> 스페이스로 활성화 시킨 후 다시 비활 시킨 것. 
                     if (chatManager.isAction == false)
                     {
                         PickUpNote();
-<<<<<<< HEAD
-                        // 쪽지를 얻었을 때 호출 : ShowDialogue();
-=======
-                        // ispiclup 비활성화 후 쪽지를 얻었을 때 호출 : ShowDialogue();
->>>>>>> f54f674d490e0d0abfdb5743444ef0f39b2134ad
+                        // 쪽지의 getNote를 다시 false로 변경
+                        chatManager.ShowDialogue();
                     }
                 }
             }
