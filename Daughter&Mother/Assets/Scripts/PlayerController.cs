@@ -46,11 +46,13 @@ public class PlayerController : MonoBehaviour
     public GameObject Enemy;
 
     // 대화창
-    public ChatManager chatManager;
+    // 2월4일 수정 : 해당 씬의 chatManager를 찾아서 넣는 걸로
+    private ChatManager chatManager;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Update()
@@ -70,9 +72,12 @@ public class PlayerController : MonoBehaviour
         if (chatManager.isAction)
         {
             playerMoving = false;
+            Debug.Log("움직이지 않는다......");
+            Debug.Log(chatManager.isAction);
         }
-        else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
+        else if (chatManager.isAction == false) //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
         {
+            Debug.Log("움직인다 = chatManager가 false 이다..."); 
             // 좌우로 움직이기
             if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
             {

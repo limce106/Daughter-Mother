@@ -14,7 +14,7 @@ public class PlayerStat : MonoBehaviour
     public int AKT;
     public int DEF;
     public Item weapon; 
-    public Item shield;
+    public Item shield; 
 
     //체력바
     public Slider hpSlider;

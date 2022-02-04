@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
         if (activeInventory)
         {
             // 아이템 슬롯에 보유 아이템을 띄운다. (아이템 활성화)
-            ShowItem();
+            ShowItem(); 
         }
     }
 

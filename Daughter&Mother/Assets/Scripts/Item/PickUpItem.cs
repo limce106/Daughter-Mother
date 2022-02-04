@@ -8,11 +8,11 @@ public class PickUpItem : MonoBehaviour
     public int itemID;
     bool isPickUp;
     // 아이템에 가까워지면 space를 누르라는 안내 문구
-    public Text pickUpText;
+    public Text pickUpText; 
     // 대화창 띄울 변수
-    public ChatManager chatManager;
+    public ChatManager chatManager; 
     // 아이템데이터베이스에 접근
-    public ItemDatabase theDatabase;
+    public ItemDatabase theDatabase; 
 
 
     void Start() 
@@ -51,6 +51,11 @@ public class PickUpItem : MonoBehaviour
                     if (chatManager.isAction == false)
                     {
                         PickUpNote();
+<<<<<<< HEAD
+                        // 쪽지를 얻었을 때 호출 : ShowDialogue();
+=======
+                        // ispiclup 비활성화 후 쪽지를 얻었을 때 호출 : ShowDialogue();
+>>>>>>> f54f674d490e0d0abfdb5743444ef0f39b2134ad
                     }
                 }
             }

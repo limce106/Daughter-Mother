@@ -24,15 +24,15 @@ public class Button : MonoBehaviour
     // 씬 전환 함수들
     public void ChangeToNameScene()
     {
-        SceneManager.LoadScene("SetName");
+        SceneManager.LoadScene("SetName"); 
     }
     public void ChangeSToExplainScene()
     {
-        SceneManager.LoadScene("ExplainGame");
+        SceneManager.LoadScene("ExplainGame"); 
     }
     public void ChangeSToBedroomScene()
     {
-        SceneManager.LoadScene("BedRoom");
+        SceneManager.LoadScene("BedRoom"); 
     }
     // 게임종료
     public void GameOut()

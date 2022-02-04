@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy1Controller : MonoBehaviour
 {
@@ -44,9 +45,11 @@ public class Enemy1Controller : MonoBehaviour
 
     // 에너미의 체력
     public int hp = 15;
+    
 
-    // 에너미의 최대 체력
-    int maxHp = 15;
+    // 에너미의 현재 체력
+    public int currentHP;
+    //영상보고 코드 추가하기
 
     // 애니메이터 변수
     Animator anim;
@@ -56,6 +59,9 @@ public class Enemy1Controller : MonoBehaviour
 
     // 마지막 움직임 방향 확인 변수
     Vector2 lastMove;
+
+    //체력바
+    public Slider EnemyHpSlider;
 
     void Start()
     {
@@ -158,12 +164,12 @@ public class Enemy1Controller : MonoBehaviour
         if (Vector3.Distance(transform.position, player.position) < attackDistance)
         {
             // 일정 시간마다 플레이어를 공격한다.
-            currentTime += Time.deltaTime;
-            if (currentTime > attackDelay)
+            currentTime += Time.deltaTime; 
+            if (currentTime > attackDelay) 
             {
-                player.GetComponent<PlayerController>().DamageAction(attackPower);
-                print("공격");
-                currentTime = 0;
+                player.GetComponent<PlayerController>().DamageAction(attackPower); 
+                print("공격"); 
+                currentTime = 0; 
 
                 // 공격 애니메이션 플레이
                 //anim.SetTrigger("StartAttack");
@@ -214,8 +220,8 @@ public class Enemy1Controller : MonoBehaviour
         }
 
         // 플레이어의 공격력만큼 에너미의 체력을 감소시킨다.
-        hp -= hitPower;
-
+        //hp -= hitPower;
+        PlayerStat.instance.currentHP -= hitPower;
         // 에너미의 체력이 0보다 크면 피격 상태로 전환한다.
         if (hp > 0)
         {

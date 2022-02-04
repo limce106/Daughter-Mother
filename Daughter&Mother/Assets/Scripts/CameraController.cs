@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // 카메라가 따라갈 대상
-    public GameObject target;
+    private GameObject target;
     // 카메라가 따라갈 속도
     public float moveSpeed;
     // 대상의 현재 위치
@@ -14,6 +14,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         // DontDestroyOnLoad(this.gameObject); // 게임 오브젝트 파괴금지
+        // 2월4일 수정
+        target = GameObject.Find("Player");
     }
 
     void Update()
