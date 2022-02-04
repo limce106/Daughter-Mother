@@ -42,17 +42,21 @@ public class PlayerController : MonoBehaviour
     // 공격 딜레이 시간
     public float attackDelay = 1f;
 
-    public GameObject Player;
-    public GameObject Enemy;
+    public GameObject Player; 
+    public GameObject Enemy; 
 
     // 대화창
     // 2월4일 수정 : 해당 씬의 chatManager를 찾아서 넣는 걸로
-    private ChatManager chatManager;
+    public ChatManager chatManager;
+
+    public static PlayerController instance;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        // 씬이 바뀔 때마다 chatManager를 갱신해줘야 되잖아... -> Door에서? 일단 Update에서
         chatManager = GameObject.FindObjectOfType<ChatManager>();
+        instance = this;
     }
 
     void Update()
@@ -60,6 +64,8 @@ public class PlayerController : MonoBehaviour
         Move();
         Attack();
         ChangeObject();
+        // 씬이 바뀔때만 갱신하고 싶은데...
+        chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Move()
@@ -72,7 +78,6 @@ public class PlayerController : MonoBehaviour
         if (chatManager.isAction)
         {
             playerMoving = false;
-            Debug.Log("움직이지 않는다......");
             Debug.Log(chatManager.isAction);
         }
         else if (chatManager.isAction == false) //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
