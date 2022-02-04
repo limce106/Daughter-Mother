@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviour
         if ((chatManager.isAction)||(Inventory.instance.activeInventory))
         {
             playerMoving = false;
-            Debug.Log(chatManager.isAction);
         }
         else //대화창이 활성화되지 않았다면 플레이어는 움직일 수 있다. 
         {

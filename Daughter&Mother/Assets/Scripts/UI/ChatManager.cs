@@ -183,7 +183,7 @@ public class ChatManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().name == "Playground")
+        if (SceneManager.GetActiveScene().name == "Playground") 
         {
             // 에너미에게 말 걸었을 때 실행
             if (Input.GetKeyDown(KeyCode.Space))

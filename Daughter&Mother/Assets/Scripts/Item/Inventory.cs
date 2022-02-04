@@ -125,7 +125,7 @@ public class Inventory : MonoBehaviour
                 if (inventoryItemList[i].itemType == Item.ItemType.Weapon)
                 {
                     weaponIcon.sprite = inventoryItemList[i].itemIcon; 
-                    atkText.text = inventoryItemList[i].itemValue.ToString(); 
+                    atkText.text = inventoryItemList[i].itemValue.ToString();
                 }
                 // 방어구일 결우 플레이어의 stat - 방어구에 추가, 플레이어의 방어력 증가, 이미지를 인벤토리에 띄움
                 else if (inventoryItemList[i].itemType == Item.ItemType.Shield)
@@ -179,8 +179,6 @@ public class Inventory : MonoBehaviour
     // 아이템 찾기
     public void GetAnItem(int _itemID)
     {
-        //Debug.Log("GetAnItem 함수 실행");
-        Debug.Log("가져온 데이터베이스의 itemList.Count : "+theDatabase.itemList.Count);
         // 데이터베이스 검색 
         // 데이터 베이스의 아이템 리스트 크기만큼 반복하며 ID를 찾음
         for (int i = 0; i < theDatabase.itemList.Count; i++) 
