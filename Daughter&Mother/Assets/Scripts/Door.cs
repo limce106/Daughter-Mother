@@ -53,9 +53,7 @@ public class Door : MonoBehaviour
             {
                 PlayerPosition();
                 SceneManager.LoadScene("Enemy3");
-            }
-            
-            
+            }    
         }
     }
 

@@ -26,15 +26,15 @@ public class ItemDatabase : MonoBehaviour
         thePlayerStat = FindObjectOfType<PlayerStat>();
         // 아이템 리스트에 아이템 추가 (Add)
         itemList.Add(new Item(0, "마법봉장난감", PlayerPrefs.GetString("Name") + "이가 제일 좋아하는 마법봉 장난감이다. \n\n공격력 +15", 15, Item.ItemType.Weapon));
-        itemList.Add(new Item(1, "국자", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.\n\n공격력 +10", 10, Item.ItemType.Weapon));
-        itemList.Add(new Item(2, "가위", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Weapon));
-        itemList.Add(new Item(3, "낡은 옷", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 10, Item.ItemType.Shield));
-        itemList.Add(new Item(4, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 15, Item.ItemType.Shield));
-        itemList.Add(new Item(5, "싸구려 목걸이", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Shield));
-        itemList.Add(new Item(6, "사과", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 10, Item.ItemType.Potion));
-        itemList.Add(new Item(7, "빵", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 20, Item.ItemType.Potion));
-        itemList.Add(new Item(8, "사탕", "놀이터 한 가운데에 떨어져 있던 사탕. 딸기맛과 레몬맛이다.", 25, Item.ItemType.Potion));
-        itemList.Add(new Item(9, "쿠키", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다.", 30, Item.ItemType.Potion));
+        itemList.Add(new Item(1, "국자", "달고나 만들 때 유용한 국자이다. \n\n공격력 +10", 10, Item.ItemType.Weapon));
+        itemList.Add(new Item(2, "가위", "문방구에 있던 새 가위이다. \n\n공격력 +10", 20, Item.ItemType.Weapon));
+        itemList.Add(new Item(3, "낡은 옷", "산타클로스 무늬가 있는 빨간 스웨터이다. \n\n방어력 +10", 10, Item.ItemType.Shield));
+        itemList.Add(new Item(4, "장난감방패", "만화영화 핏치피치어벤저스에서 주인공이 사용하는 방패이다. \n\n방어력", 15, Item.ItemType.Shield));
+        itemList.Add(new Item(5, "싸구려 목걸이", "문방구에서 뽑기를 하면 얻을 수 있는 목걸이다. \n\n방어력", 20, Item.ItemType.Shield));
+        itemList.Add(new Item(6, "사과", "먹음직스러워 보이는 잘익은 사과이다. \n\n체력", 10, Item.ItemType.Potion));
+        itemList.Add(new Item(7, "빵", "쓰레기통 근처에 떨어져 있었던 빵이다. \n\n체력", 20, Item.ItemType.Potion));
+        itemList.Add(new Item(8, "사탕", "놀이터 한 가운데에 떨어져 있던 딸기맛 사탕이다. \n\n체력", 25, Item.ItemType.Potion));
+        itemList.Add(new Item(9, "쿠키", "안촉촉한초코칩나라의 초코쿠키이다. \n\n체력", 30, Item.ItemType.Potion));
         
         // Stuff 리스트에 오브젝트 추가 (Add) 
         // Bedroom
@@ -44,26 +44,35 @@ public class ItemDatabase : MonoBehaviour
         stuffList.Add(new Stuff(103, "스탠드", "잠 자기 전에 켜놓는 노란빛의 스탠드이다."));
         // Kitchen
         stuffList.Add(new Stuff(104, "냉장고", "냉장고 안에 생크림 케이크 조각이 있다."));
-        stuffList.Add(new Stuff(105, "이름", "설명"));
+        stuffList.Add(new Stuff(105, "싱크대", "설"));
         stuffList.Add(new Stuff(106, "이름", "설명"));
         stuffList.Add(new Stuff(107, "이름", "설명"));
         stuffList.Add(new Stuff(108, "이름", "설명"));
+        // Livingtoom
         stuffList.Add(new Stuff(109, "이름", "설명"));
         stuffList.Add(new Stuff(110, "이름", "설명"));
         stuffList.Add(new Stuff(111, "이름", "설명"));
         stuffList.Add(new Stuff(112, "이름", "설명"));
+        // Road
         stuffList.Add(new Stuff(113, "이름", "설명"));
         stuffList.Add(new Stuff(114, "이름", "설명"));
         stuffList.Add(new Stuff(115, "이름", "설명"));
         stuffList.Add(new Stuff(116, "이름", "설명"));
+        // Enemy1
         stuffList.Add(new Stuff(117, "이름", "설명"));
         stuffList.Add(new Stuff(118, "이름", "설명"));
         stuffList.Add(new Stuff(119, "이름", "설명"));
         stuffList.Add(new Stuff(120, "이름", "설명"));
+        // Enemy2
         stuffList.Add(new Stuff(121, "이름", "설명"));
         stuffList.Add(new Stuff(122, "이름", "설명"));
         stuffList.Add(new Stuff(123, "이름", "설명"));
         stuffList.Add(new Stuff(124, "이름", "설명"));
+        // Enemy3
+        stuffList.Add(new Stuff(125, "이름", "설명"));
+        stuffList.Add(new Stuff(126, "이름", "설명"));
+        stuffList.Add(new Stuff(127, "이름", "설명"));
+        stuffList.Add(new Stuff(128, "이름", "설명"));
     }
 
 
