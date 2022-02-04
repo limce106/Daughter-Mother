@@ -32,10 +32,10 @@ public class PlayerController : MonoBehaviour
     bool playerAttacking;
 
     // 플레이어 공격력
-    public int attackPower = 3;
+    //public int attackPower = 3;
 
     // 플레이어 방어력
-    public int defendPower;
+    //public int defendPower;
 
     float currentAttackDelay;
 
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             if (Vector2.Distance(Player.transform.position, Enemy.transform.position) <= 1)
             {
                 // 에너미의 hp가 플레이어의 공격력만큼 줄어든다.
-                ec.hp -= attackPower;
+                ec.hp -= PlayerStat.instance.AKT;
             }
             // 막타를 치면(에너미의 hp가 0이면) 기억 장면을 불러온다.
             if (ec.hp <= 0)
@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
     public void DamageAction(int damage)
     {
         // 에너미의 공격력만큼 플레이어의 체력을 깎는다.
-        hp -= damage - defendPower;
+        hp -= damage - PlayerStat.instance.DEF;
 
         // 만일, 플레이어의 체력이 0보다 크면 피격 효과를 출력한다.
         if (hp > 0)
@@ -223,7 +223,7 @@ public class PlayerController : MonoBehaviour
         if(PlayerStat.instance.weapon != null)
         {
             anim.SetBool("isChange", true);
-            attackPower = 5;
+            PlayerStat.instance.AKT = 5;
         }
         else
         {

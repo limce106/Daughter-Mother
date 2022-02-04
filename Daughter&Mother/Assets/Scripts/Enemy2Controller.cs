@@ -46,7 +46,7 @@ public class Enemy2Controller : MonoBehaviour
     public int hp = 15;
 
     // 에너미의 최대 체력
-    int maxHp = 15;
+    //int maxHp = 15;
 
     // 애니메이터 변수
     Animator anim;
@@ -162,6 +162,9 @@ public class Enemy2Controller : MonoBehaviour
             if (currentTime > attackDelay)
             {
                 player.GetComponent<PlayerController>().DamageAction(attackPower);
+                //공격당하면서 체력바 줄어듬
+                PlayerStat.instance.currentHP -= attackPower;
+                print(PlayerStat.instance.currentHP + "이 남았습니다");
                 print("공격");
                 currentTime = 0;
 
