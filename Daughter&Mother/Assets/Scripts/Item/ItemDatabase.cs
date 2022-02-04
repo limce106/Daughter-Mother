@@ -16,8 +16,8 @@ public class ItemDatabase : MonoBehaviour
     // PlayerStat
     private PlayerStat thePlayerStat;
 
-    private void Start() {
-        // 쪽지 리스트에 쪽지 추가 (Add)
+    private void Start() { 
+        // 쪽지 리스트에 쪽지 추가 (Add) 
        NoteList.Add(new Note(1001, PlayerPrefs.GetString("Name") + "아 엄마는 놀이터에 있어\n엄마를 찾으러 와줄래?", false));
        NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? ", false));
        NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?", false));
@@ -66,10 +66,6 @@ public class ItemDatabase : MonoBehaviour
         stuffList.Add(new Stuff(124, "이름", "설명"));
     }
 
-    public void Update() 
-    {
-        Debug.Log("itemList.Count : " + itemList.Count);
-    }
 
     // 아이템을 사용했을 때의 스탯 변화
     public void UseItem(int _itemID)

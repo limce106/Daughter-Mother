@@ -51,7 +51,7 @@ public class PickUpItem : MonoBehaviour
                     if (chatManager.isAction == false)
                     {
                         PickUpNote();
-                        // 쪽지를 얻었을 때 호출 : ShowDialogue();
+                        // ispiclup 비활성화 후 쪽지를 얻었을 때 호출 : ShowDialogue();
                     }
                 }
             }
