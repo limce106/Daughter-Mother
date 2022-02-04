@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9704c99439e54747a55a03acdb04d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DalgonaFactory: {fileID: 7305671627359298518, guid: 83e1869d23c2ebd4094eec1baeeb27ba, type: 3}
+  DalgonaFactory: {fileID: 528301572929033389, guid: 031fd452c1333914c897f1056be88846, type: 3}
   firePosition: {fileID: 164269369}
   createTime: 1
 --- !u!1 &2024444317

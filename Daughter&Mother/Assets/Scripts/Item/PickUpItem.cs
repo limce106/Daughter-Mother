@@ -48,7 +48,7 @@ public class PickUpItem : MonoBehaviour
                 else
                 {
                     chatManager.ActionNoteCont(itemID);
-                    // 쪽지의 getNote 를 true로 변경
+                    // 획득한 쪽지의 getNote 를 true로 변경
                     Inventory.instance.currentNote.getNote = true;
                     // if (비활성화 되었을 때) -> 스페이스로 활성화 시킨 후 다시 비활 시킨 것. 
                     if (chatManager.isAction == false)

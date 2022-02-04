@@ -2037,6 +2037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 495634453}
   - component: {fileID: 495634452}
+  - component: {fileID: 495634454}
   m_Layer: 0
   m_Name: ItemDBManager
   m_TagString: Untagged
@@ -2073,6 +2074,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &495634454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495634451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdc8c4e4da937b4988b4d1aaffb5bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &512294079
 GameObject:
   m_ObjectHideFlags: 0
@@ -4262,7 +4275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 50
-  currentHP: 30
+  currentHP: 35
   AKT: 0
   DEF: 0
   weapon:
@@ -4300,6 +4313,7 @@ MonoBehaviour:
   attackDelay: 1
   Player: {fileID: 903903423}
   Enemy: {fileID: 1416104506}
+  chatManager: {fileID: 0}
 --- !u!50 &903903426
 Rigidbody2D:
   serializedVersion: 4
@@ -6705,6 +6719,7 @@ MonoBehaviour:
   DescriptionText: {fileID: 157182296}
   tf: {fileID: 1257292724}
   inventoryPanel: {fileID: 970207998}
+  activeInventory: 0
   theDatabase: {fileID: 0}
   UserNameText: {fileID: 761111266}
   weaponIcon: {fileID: 1704025536}
@@ -6717,6 +6732,7 @@ MonoBehaviour:
     noteID: 0
     noteContent: 
     noteIcon: {fileID: 0}
+    getNote: 0
 --- !u!4 &1462575003
 Transform:
   m_ObjectHideFlags: 0

@@ -13,8 +13,6 @@ public class ItemDatabase : MonoBehaviour
     // 쪽지 리스트 (총 3개의 쪽지를 얻어야 함.)
     public List<Note> NoteList = new List<Note>();
 
-    // PlayerStat
-    private PlayerStat thePlayerStat;
 
     private void Start() { 
         // 쪽지 리스트에 쪽지 추가 (Add) 
@@ -22,8 +20,6 @@ public class ItemDatabase : MonoBehaviour
        NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? ", false));
        NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?", false));
 
-        // PlayerStat 스크립트
-        thePlayerStat = FindObjectOfType<PlayerStat>();
         // 아이템 리스트에 아이템 추가 (Add)
         itemList.Add(new Item(0, "마법봉장난감", PlayerPrefs.GetString("Name") + "이가 제일 좋아하는 마법봉 장난감이다. \n\n공격력 +15", 15, Item.ItemType.Weapon));
         itemList.Add(new Item(1, "국자", "달고나 만들 때 유용한 국자이다. \n\n공격력 +10", 10, Item.ItemType.Weapon));
@@ -43,36 +39,43 @@ public class ItemDatabase : MonoBehaviour
         stuffList.Add(new Stuff(102, "침대", "방금까지 자고 일어난 침대이다."));
         stuffList.Add(new Stuff(103, "스탠드", "잠 자기 전에 켜놓는 노란빛의 스탠드이다."));
         // Kitchen
-        stuffList.Add(new Stuff(104, "냉장고", "냉장고 안에 생크림 케이크 조각이 있다."));
-        stuffList.Add(new Stuff(105, "싱크대", "설"));
-        stuffList.Add(new Stuff(106, "이름", "설명"));
-        stuffList.Add(new Stuff(107, "이름", "설명"));
-        stuffList.Add(new Stuff(108, "이름", "설명"));
+        stuffList.Add(new Stuff(104, "냉장고", "내가 좋아하는 음식들로 가득 차 있다."));
+        stuffList.Add(new Stuff(105, "싱크대", "설거지가 가득 쌓여있는 싱크대이다."));
+        stuffList.Add(new Stuff(106, "가스레인지", "맛있는 라면을 끓여 먹을 수 있는 가스레인지이다."));
+        stuffList.Add(new Stuff(107, "선반", "엄마가 좋아하는 그릇과 예쁜 찻잔이 있는 선반이다."));
+        stuffList.Add(new Stuff(108, "화병", "엄마가 좋아하는 꽃인 데이지이다."));
+        stuffList.Add(new Stuff(109, "쓰레기통", "과자 봉지가 버려져 있다."));
         // Livingtoom
-        stuffList.Add(new Stuff(109, "이름", "설명"));
-        stuffList.Add(new Stuff(110, "이름", "설명"));
-        stuffList.Add(new Stuff(111, "이름", "설명"));
-        stuffList.Add(new Stuff(112, "이름", "설명"));
-        // Road
-        stuffList.Add(new Stuff(113, "이름", "설명"));
-        stuffList.Add(new Stuff(114, "이름", "설명"));
-        stuffList.Add(new Stuff(115, "이름", "설명"));
-        stuffList.Add(new Stuff(116, "이름", "설명"));
-        // Enemy1
-        stuffList.Add(new Stuff(117, "이름", "설명"));
-        stuffList.Add(new Stuff(118, "이름", "설명"));
-        stuffList.Add(new Stuff(119, "이름", "설명"));
-        stuffList.Add(new Stuff(120, "이름", "설명"));
-        // Enemy2
-        stuffList.Add(new Stuff(121, "이름", "설명"));
-        stuffList.Add(new Stuff(122, "이름", "설명"));
-        stuffList.Add(new Stuff(123, "이름", "설명"));
-        stuffList.Add(new Stuff(124, "이름", "설명"));
-        // Enemy3
-        stuffList.Add(new Stuff(125, "이름", "설명"));
-        stuffList.Add(new Stuff(126, "이름", "설명"));
-        stuffList.Add(new Stuff(127, "이름", "설명"));
-        stuffList.Add(new Stuff(128, "이름", "설명"));
+        stuffList.Add(new Stuff(110, "벽에 걸린 사진1", "내가 학교에서 그린 밤하늘 그림이다."));
+        stuffList.Add(new Stuff(111, "벽에 걸린 사진2", "엄마와 함께 찍은 사진이다."));
+        stuffList.Add(new Stuff(112, "화초1", "공기정화를 해주는 화초이다."));
+        stuffList.Add(new Stuff(113, "화초2", "내가 좋아하는 꽃인 리시안셔스이다."));
+        stuffList.Add(new Stuff(114, "소파", "엄마와 함께 자주 앉던 노란색 소파이다."));
+        stuffList.Add(new Stuff(115, "쿠션", "소파와 한세트인 푹신푹신한 쿠션이다."));
+        stuffList.Add(new Stuff(116, "엄마의 사진", "엄마의 모습이 담긴 사진. 사진을 보고 있으니 엄마를 빨리 보고 싶다."));
+        stuffList.Add(new Stuff(117, "털실", "목도리를 만들다 만 털실이다."));
+        stuffList.Add(new Stuff(118, "뜨개질 바늘", "목도리를 만들 때 사용했던 대바늘이다."));
+        // Road 
+        stuffList.Add(new Stuff(119, "가로등", "어두운 밤을 밝혀주는 한줄기의 빛! 가로등이다."));
+        stuffList.Add(new Stuff(120, "쓰레기통1", "쓰레기가 거의 없는 텅 빈 쓰레기통이다."));
+        stuffList.Add(new Stuff(121, "쓰레기통2", "쓰레기가 가득 찬 쓰레기통이다."));
+        stuffList.Add(new Stuff(122, "의류수거함", "더이상 입지 않는 옷을 넣어두는 의류수거함이다."));
+        stuffList.Add(new Stuff(123, "깨진 유리 조각", "누군가 무단 투기한 깨진 유리 조각이다. 앗 따갑다!"));
+        // Enemy1(놀이터)
+        stuffList.Add(new Stuff(124, "그네", "내가 재미있게 바이킹을 타던 그네이다."));
+        stuffList.Add(new Stuff(125, "시소", "놀이터의 인기 No.1 시소이다."));
+        stuffList.Add(new Stuff(126, "타이어", "친구들이 앉거나 올라가서 놀 수 있는 타이어이다."));
+        stuffList.Add(new Stuff(127, "모래놀이 장난감", "모래성을 만들 수 있는 장난감이다."));
+        // Enemy2(문방구)
+        stuffList.Add(new Stuff(128, "아이스크림 냉장고", "여름철 문방구 필수품 아이스크림 냉장고이다."));
+        stuffList.Add(new Stuff(129, "음료수 냉장고", "맛있는 음료들이 있는 음료수 냉장고이다. 내가 제일 좋아하는 음료수는 팬돌이♪"));
+        stuffList.Add(new Stuff(130, "선반", "공책과 물감 등 여러가지 문구들이 있는 선반이다."));
+        stuffList.Add(new Stuff(131, "계산대", "여러가지 물건을 계산할 수 있는 계산대이다."));
+        // Enemy3(학교)
+        stuffList.Add(new Stuff(132, "벤치", "페인트가 벗겨진 벤치이다."));
+        stuffList.Add(new Stuff(133, "시험지", "만점을 받은 시험지이다. 전교 1등이 떨어뜨린 시험지인가.."));
+        stuffList.Add(new Stuff(134, "책", "운동장에 버려진 책이다. 공부를 안하나 보다.."));
+        stuffList.Add(new Stuff(135, "농구 골대", "학교 친구들의 점심시간을 책임지는 든든한 농구 골대이다."));
     }
 
 
@@ -120,13 +123,13 @@ public class ItemDatabase : MonoBehaviour
     // 무기 착용했을 때
     public void WearWeapon(int id)
     {
-        thePlayerStat.AKT = itemList[id].itemValue;
+        PlayerStat.instance.AKT = itemList[id].itemValue;
         PlayerStat.instance.weapon = itemList[id];
     }
     // 방어구 착용했을 때
     public void WearShield(int id) 
     {
-        thePlayerStat.DEF = itemList[id].itemValue;
+        PlayerStat.instance.DEF = itemList[id].itemValue;
         PlayerStat.instance.shield = itemList[id];
     }
     
@@ -134,13 +137,13 @@ public class ItemDatabase : MonoBehaviour
     public void UsePotion(int id)
     {
         // 아이템 복용 후 플레이어의 최대 HP를 넘으면 안된다. 
-        if (thePlayerStat.HP >= thePlayerStat.currentHP + itemList[id].itemValue) 
+        if (PlayerStat.instance.HP >= PlayerStat.instance.currentHP + itemList[id].itemValue) 
         {
-            thePlayerStat.currentHP += itemList[id].itemValue;
+            PlayerStat.instance.currentHP += itemList[id].itemValue;
         }
         else
         {
-            thePlayerStat.currentHP = thePlayerStat.HP;
+            PlayerStat.instance.currentHP = PlayerStat.instance.HP;
         }
     }
 }
