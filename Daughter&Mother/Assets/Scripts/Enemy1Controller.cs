@@ -224,6 +224,7 @@ public class Enemy1Controller : MonoBehaviour
 
         // 플레이어의 공격력만큼 에너미의 체력을 감소시킨다.
         hp -= hitPower;
+        //PlayerStat.instance.currentHP -= hitPower;
         // 에너미의 체력이 0보다 크면 피격 상태로 전환한다.
         if (hp > 0)
         {

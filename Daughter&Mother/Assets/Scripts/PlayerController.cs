@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     // 캐릭터 콘트롤러 변수
     CharacterController cc;
 
-    // 플레이어 체력 변수
+    // 플레이어 체력 변수 여기 부분은 오류가 나서 이렇게 선언
     public int hp;
 
     // 최대 체력 변수
-    int maxHp;
+    //int maxHp;
 
     // Hit 효과 오브젝트
      public GameObject hitEffect;
