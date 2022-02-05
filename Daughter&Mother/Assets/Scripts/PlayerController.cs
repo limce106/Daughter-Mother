@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,26 +11,20 @@ public class PlayerController : MonoBehaviour
     // 캐릭터 콘트롤러 변수
     CharacterController cc;
 
-    // 플레이어 체력 변수
-    public int hp;
-
-    // 최대 체력 변수
-    int maxHp;
-
     // Hit 효과 오브젝트
      public GameObject hitEffect;
 
     // 애니메이터 변수
-    Animator anim;
+    protected Animator anim;
 
     // 플레이어 움직임 확인
-    bool playerMoving;
+    protected bool playerMoving;
 
     // 마지막 움직임 방향 확인 변수
-    Vector2 lastMove;
+    protected Vector2 lastMove;
 
     // 플레이어 공격 확인
-    bool playerAttacking;
+    protected bool playerAttacking;
 
     // 플레이어 공격력
     //public int attackPower = 3;
@@ -37,27 +32,33 @@ public class PlayerController : MonoBehaviour
     // 플레이어 방어력
     //public int defendPower;
 
-    float currentAttackDelay;
+    protected float currentAttackDelay;
 
     // 공격 딜레이 시간
     public float attackDelay = 1f;
 
     public GameObject Player; 
-    public GameObject Enemy; 
+    public GameObject Enemy;
+
+    public Enemy1Controller ec1;
+    public Enemy2Controller ec2;
+    public Enemy3Controller ec3;
 
     // 대화창
-    // 2월4일 수정 : 해당 씬의 chatManager를 찾아서 넣는 걸로
     public ChatManager chatManager;
 
     public static PlayerController instance;
+
+    // 기억장면 후
+    public bool aftermemory;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         // 씬이 바뀔 때마다 chatManager를 갱신해줘야 되잖아... -> chatManager의 Start에서
         // 만약에 dontDestroy 로 한다면 갱신하지 않아도 되겠지... but 걸리는게 너무 많지 않아?
-        chatManager = GameObject.FindObjectOfType<ChatManager>();
-        instance = this;
+        instance = this; 
+        aftermemory = false; 
     }
 
     void Update()
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
         Move();
         Attack();
         ChangeObject();
+        //chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Move()
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
             {
                 // 만일, 플레이어의 hp가 0 이하라면...
-                if (hp <= 0)
+                if (PlayerStat.instance.currentHP <= 0)
                 {
                     // 플레이어의 애니메이션을 멈춘다.
                     anim.SetBool("isMove", false);
@@ -102,7 +104,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
             {
                 // 만일, 플레이어의 hp가 0 이하라면...
-                if (hp <= 0)
+                if (PlayerStat.instance.currentHP <= 0)
                 {
                     // 플레이어의 애니메이션을 멈춘다.
                     anim.SetBool("isMove", false);
@@ -125,79 +127,108 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("LastMoveY", lastMove.y);
     }
 
+
     void Attack()
     {
-        playerMoving = false;
-        playerAttacking = false;
-        EnemyController ec = GameObject.Find("Enemy").GetComponent<EnemyController>();
-        // Enemy2Controller ec = GameObject.Find("Enemy").GetComponent<Enemy2Controller>();
-        // Enemy3Controller ec = GameObject.Find("Enemy").GetComponent<Enemy3Controller>();
-
-        if (Input.GetKeyDown(KeyCode.Z))
+        //씬이 Enemy1, 2, 3일 때만 z를 눌러 공격할 수 있다.
+        if ((SceneManager.GetActiveScene().name == "Enemy1") || (SceneManager.GetActiveScene().name == "Enemy2") || (SceneManager.GetActiveScene().name == "Enemy3"))
         {
-            currentAttackDelay = attackDelay;
-            // 공격 애니메이션 활성화
-            playerAttacking = true;
             playerMoving = false;
-            anim.SetFloat("DirX", Input.GetAxisRaw("Horizontal"));
-            anim.SetFloat("DirY", Input.GetAxisRaw("Vertical"));
-            anim.SetBool("isAttack", playerAttacking);
-            if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+            playerAttacking = false;
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
-                playerMoving = true;
-                lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+                currentAttackDelay = attackDelay;
+                // 공격 애니메이션 활성화
+                playerAttacking = true;
+                playerMoving = false;
+                anim.SetFloat("DirX", Input.GetAxisRaw("Horizontal"));
+                anim.SetFloat("DirY", Input.GetAxisRaw("Vertical"));
+                anim.SetBool("isAttack", playerAttacking);
+                if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+                {
+                    transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
+                    playerMoving = true;
+                    lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+                }
+                // 플레이어와 에너미의 거리가 1보다 작을 때 플레이어가 공격하면
+                if (Vector2.Distance(Player.transform.position, Enemy.transform.position) <= 1)
+                {
+                    Debug.Log("플레이어와 에너미 거리가 1");
+                    // 에너미의 hp가 플레이어의 공격력만큼 줄어든다.
+                    if (SceneManager.GetActiveScene().name == "Enemy1")
+                    {
+                        ec1.hp -= PlayerStat.instance.AKT;
+                    }
+                    else if (SceneManager.GetActiveScene().name == "Enemy2")
+                    {
+                        Debug.Log("공격중");
+                        ec2.hp -= PlayerStat.instance.AKT;
+                    }
+                    else if (SceneManager.GetActiveScene().name == "Enemy3")
+                    {
+                        ec3.hp -= PlayerStat.instance.AKT;
+                    }
+                }
+                // 막타를 치면(에너미의 hp가 0이면) 기억 장면을 불러온다.
+                if ((ec1.hp <= 0) || (ec2.hp <= 0) || (ec3.hp <= 0))
+                {
+                    StartCoroutine(LastHitProcess());
+                }
             }
-            // 플레이어와 에너미의 거리가 1보다 작을 때 플레이어가 공격하면
-            if (Vector2.Distance(Player.transform.position, Enemy.transform.position) <= 1)
+            else
             {
-                // 에너미의 hp가 플레이어의 공격력만큼 줄어든다.
-                ec.hp -= PlayerStat.instance.AKT;
-            }
-            // 막타를 치면(에너미의 hp가 0이면) 기억 장면을 불러온다.
-            if (ec.hp <= 0)
-            {
-                StartCoroutine(LastHitProcess());
-            }
-        }
-
-        else
-        {
-            currentAttackDelay -= Time.deltaTime;
-            if (currentAttackDelay <= 0)
-            {
-                anim.SetBool("isAttack", false);
-                playerAttacking = false;
+                currentAttackDelay -= Time.deltaTime;
+                if (currentAttackDelay <= 0)
+                {
+                    anim.SetBool("isAttack", false);
+                    playerAttacking = false;
+                }
             }
         }
     }
 
+
     IEnumerator LastHitProcess()
     {
-        EnemyController ec = GameObject.Find("Enemy").GetComponent<EnemyController>();
-        // Enemy2Controller ec = GameObject.Find("Enemy").GetComponent<Enemy2Controller>();
-        // Enemy3Controller ec = GameObject.Find("Enemy").GetComponent<Enemy3Controller>();
-
         yield return new WaitForSeconds(0.5f);
-
-        // 1. 기억 장면 UI를 활성화한다.
-        ec.memory.SetActive(true);
-
-        // 2. 5초간 대기한다.
-        yield return new WaitForSeconds(5f);
-
-        // 3. 기억 장면 UI를 비활성화한다.
-        ec.memory.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Enemy1")
+        {
+            // 1. 기억 장면 UI를 활성화한다.
+            ec1.memory.SetActive(true);
+            // 2. 5초간 대기한다.
+            yield return new WaitForSeconds(5f);
+            // 3. 기억 장면 UI를 비활성화한다.
+            ec1.memory.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().name == "Enemy2")
+        {
+            // 1. 기억 장면 UI를 활성화한다.
+            ec2.memory.SetActive(true);
+            // 2. 5초간 대기한다.
+            yield return new WaitForSeconds(5f);
+            // 3. 기억 장면 UI를 비활성화한다.
+            ec2.memory.SetActive(false);  
+        }
+        else if (SceneManager.GetActiveScene().name == "Enemy3")
+        {
+            // 1. 기억 장면 UI를 활성화한다.
+            ec3.memory.SetActive(true);
+            // 2. 5초간 대기한다.
+            yield return new WaitForSeconds(5f);
+            // 3. 기억 장면 UI를 비활성화한다.
+            ec3.memory.SetActive(false);
+            aftermemory = true;
+        }
     }
 
     // 플레이어의 피격 함수
     public void DamageAction(int damage)
     {
-        // 에너미의 공격력만큼 플레이어의 체력을 깎는다.
-        hp -= damage - PlayerStat.instance.DEF;
+        // 에너미의 공격력만큼 플레이어의 체력을 깎는다. -> playerstat currentHP로 변경하기
+        PlayerStat.instance.currentHP -= damage - PlayerStat.instance.DEF;
 
         // 만일, 플레이어의 체력이 0보다 크면 피격 효과를 출력한다.
-        if (hp > 0)
+        if (PlayerStat.instance.currentHP > 0)
         {
             // 피격 이펙트 코루틴을 시작한다.
             StartCoroutine(PlayHitEffect());

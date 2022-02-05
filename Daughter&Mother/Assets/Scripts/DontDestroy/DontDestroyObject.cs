@@ -9,8 +9,8 @@ public class DontDestroyObject : MonoBehaviour
         // 이 스크립트의 오브젝트들을 모두 불러옴
         var objs = FindObjectsOfType<DontDestroyObject>();
 
-        // 오브젝트 : InventoryCanvas, ItemDBManager
-        if (objs.Length == 2)
+        // 오브젝트 : InventoryCanvas, ItemDBManager, ChatCanvas
+        if (objs.Length == 3)
         {
             DontDestroyOnLoad(gameObject);
         }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class AttackPiece : MonoBehaviour
 {
     // 이동 속도
-    public float speed = 1;
+    public float speed = 8;
     Vector3 dir;
     //조각의 공격력
-    public int attackPower = 7;
+    public int attackPower = 1;
 
     //충돌시작
     private void OnCollisionEnter2D(Collision2D other)
@@ -16,7 +16,7 @@ public class AttackPiece : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             PlayerController pc = GameObject.Find("Player").GetComponent<PlayerController>();
-            pc.hp -= attackPower;
+            PlayerStat.instance.currentHP -= attackPower;
             //충돌했을 때 달고나 조각(자신) 사라지기
             Destroy(gameObject);
         }
@@ -36,9 +36,9 @@ public class AttackPiece : MonoBehaviour
         //방향의 크기를 1로 하고 싶다.
         dir.Normalize();
 
-        //적이 쏜 총알은 2초뒤에 없어짐 시간지연함수
-        Invoke("DestroyBullet", 2);
-        Debug.Log("정상작동3");
+        //적이 쏜 총알은 3초뒤에 없어짐 시간지연함수
+        Invoke("DestroyBullet", 3); 
+        Debug.Log("정상작동3"); 
     }
 
     //총알이 사라지는 함수

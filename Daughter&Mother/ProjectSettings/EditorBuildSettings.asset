@@ -27,8 +27,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Road.unity
     guid: 864258c1cc071544fa6da27062cbc923
   - enabled: 1
+    path: Assets/Scenes/OutsideGame/GameOver.unity
+    guid: 43ae199fc4285154cad37e4a053d7033
+  - enabled: 1
     path: Assets/Scenes/Battle/Enemy1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 42adacb6f80b5904383b867a0108ac44
   - enabled: 1
     path: Assets/Scenes/Battle/Enemy2.unity
     guid: 1f9aa516bc8cc5b4db6a8e8b62d22dbf

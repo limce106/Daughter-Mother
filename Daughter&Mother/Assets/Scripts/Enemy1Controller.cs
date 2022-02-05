@@ -38,7 +38,7 @@ public class Enemy1Controller : MonoBehaviour
     float currentTime = 0;
 
     // 공격 딜레이 시간
-    float attackDelay = 2f;
+    float attackDelay;
 
     // 에너미 공격력
     public int attackPower = 3;
@@ -46,22 +46,28 @@ public class Enemy1Controller : MonoBehaviour
     // 에너미의 체력
     public int hp = 15;
     
-
-    // 에너미의 현재 체력
-    public int currentHP;
     //영상보고 코드 추가하기
 
     // 애니메이터 변수
     Animator anim;
 
     // 에너미 움직임 확인
-    bool enemyMoving;
+    public bool enemyMoving;
 
     // 마지막 움직임 방향 확인 변수
     Vector2 lastMove;
 
     //체력바
     public Slider EnemyHpSlider;
+    public Text EnemyHpText;
+    // 기억장면 이미지 UI
+    public GameObject memory;
+
+    // 명시적생성자
+    public Enemy1Controller (int _hp)
+    {
+        hp = _hp;
+    }
 
     void Start()
     {
@@ -74,7 +80,18 @@ public class Enemy1Controller : MonoBehaviour
         // 캐릭터 콘트롤러 컴포넌트 받아오기
         cc = GetComponent<CharacterController>(); 
 
-        anim = GetComponent<Animator>(); 
+        anim = GetComponent<Animator>();
+
+        // 플레이어의 에너미를 this로
+        PlayerController.instance.Enemy = GameObject.Find("Enemy1"); 
+
+        // playercontroller의 ec1 설정
+        PlayerController.instance.ec1 = GameObject.Find("Enemy1").GetComponent<Enemy1Controller>();
+
+        // 에너미 체력바 슬라이더를 비활성화 상태로
+        EnemyHpSlider.gameObject.SetActive(false);
+
+        attackDelay = 2f;
     }
 
     void Update()
@@ -98,6 +115,25 @@ public class Enemy1Controller : MonoBehaviour
                 //Die();
                 break;
         }
+        // EnemySlider UI 설정
+        EnemyHpSlider.maxValue = 15; // Enemy1의 총 HP는 15
+        EnemyHpSlider.value = hp; 
+        string a = hp.ToString(); 
+        EnemyHpText.text = a;
+
+        // 플레이어와 에너미의 HPSlider 띄우기
+        if (enemyMoving == true) // 에너미가 움직이는 동안 : 전투중
+        {
+            // 플레이어의 hpSlider 띄우기
+            PlayerStat.instance.hpSlider.gameObject.SetActive(true);
+            // 에너미의 hpSlider 띄우기
+            EnemyHpSlider.gameObject.SetActive(true);
+        }
+        // 에너미의 hp가 0이면 EnemyHpSlider 비활성화
+        if (hp < 0)
+        {
+            EnemyHpSlider.gameObject.SetActive(false);
+        } 
     }
 
     void Idle()
@@ -167,6 +203,7 @@ public class Enemy1Controller : MonoBehaviour
             currentTime += Time.deltaTime; 
             if (currentTime > attackDelay) 
             {
+                Debug.Log("Attack 함수에서 attackDelay : " + attackDelay);
                 player.GetComponent<PlayerController>().DamageAction(attackPower);
                 //공격당하면서 체력바 줄어듬
                 PlayerStat.instance.currentHP -= attackPower;
@@ -246,10 +283,10 @@ public class Enemy1Controller : MonoBehaviour
     void Die()
     {
         // 진행 중인 피격 코루틴을 중지한다.
-        StopAllCoroutines();
+        StopAllCoroutines(); 
 
         // 죽음 상태를 처리하기 위한 코루틴을 실행한다.
-        StartCoroutine(DieProcess());
+        StartCoroutine(DieProcess()); 
     }
 
     IEnumerator DieProcess()

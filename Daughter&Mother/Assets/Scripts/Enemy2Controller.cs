@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy2Controller : MonoBehaviour
 {
@@ -52,10 +53,17 @@ public class Enemy2Controller : MonoBehaviour
     Animator anim;
 
     // 에너미 움직임 확인
-    bool enemyMoving;
+    public bool enemyMoving;
 
     // 마지막 움직임 방향 확인 변수
     Vector2 lastMove;
+
+    //체력바
+    public Slider EnemyHpSlider;
+    public Text EnemyHpText;
+
+    // 기억장면 이미지 UI
+    public GameObject memory;
 
     void Start()
     {
@@ -69,6 +77,15 @@ public class Enemy2Controller : MonoBehaviour
         cc = GetComponent<CharacterController>();
 
         anim = GetComponent<Animator>();
+
+        // 플레이어의 에너미를 this로
+        PlayerController.instance.Enemy = GameObject.Find("Enemy2"); //this...? 왜 안돼
+
+        // playercontroller의 ec2 설정
+        PlayerController.instance.ec2 = GameObject.Find("Enemy2").GetComponent<Enemy2Controller>();
+
+        // 에너미 체력바 슬라이더를 비활성화 상태로
+        EnemyHpSlider.gameObject.SetActive(false);
     }
 
     void Update()
@@ -92,6 +109,28 @@ public class Enemy2Controller : MonoBehaviour
                 //Die();
                 break;
         }
+
+        // EnemySlider UI 설정
+        EnemyHpSlider.maxValue = 15; // Enemy1의 총 HP는 15
+        EnemyHpSlider.value = hp; 
+        string a = hp.ToString(); 
+        EnemyHpText.text = a;
+
+        // 플레이어와 에너미의 HPSlider 띄우기
+        if (enemyMoving == true) // 에너미가 움직이는 동안 : 전투중
+        {
+            // 플레이어의 hpSlider 띄우기
+            PlayerStat.instance.hpSlider.gameObject.SetActive(true);
+            // 에너미의 hpSlider 띄우기
+            EnemyHpSlider.gameObject.SetActive(true);
+        }
+        // 에너미의 hp가 0이면 EnemyHpSlider 비활성화
+        if (hp < 0)
+        {
+            EnemyHpSlider.gameObject.SetActive(false);
+        } 
+
+
     }
 
     void Idle()
