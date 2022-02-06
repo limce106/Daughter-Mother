@@ -63,7 +63,10 @@ public class PlayerController : MonoBehaviour
         playerAttacking = false;
 
         // 대화창, 인벤토리가 활성화된 상태라면 플레이어는 움직이지 않는다.
-        if ((chatManager.isAction)||(Inventory.instance.activeInventory))
+        if ((chatManager.isAction) || (Inventory.instance.activeInventory)
+            || (chatManager.talkPanel.activeSelf) || (chatManager.playerPanel1.activeSelf) || (chatManager.playerPanel2.activeSelf)
+            || (chatManager.playerPanel3.activeSelf) || (chatManager.motherPanel1.activeSelf) || (chatManager.motherPanel3.activeSelf)
+            || (chatManager.motherPanel3.activeSelf))
         {
             playerMoving = false;
         }
@@ -158,8 +161,22 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 // 막타를 치면(에너미의 hp가 0이면) 기억 장면을 불러온다.
-                if ((ec1.hp <= 0) || (ec2.hp <= 0) || (ec3.hp <= 0))
+                if (ec1.hp <= 0)
                 {
+                    ec1.enemyMoving = false;
+                    ec1.Idle();
+                    StartCoroutine(LastHitProcess());
+                }
+                else if (ec2.hp <= 0)
+                {
+                    ec2.enemyMoving = false;
+                    ec2.Idle();
+                    StartCoroutine(LastHitProcess());
+                }
+                else if (ec3.hp <= 0)
+                {
+                    ec3.enemyMoving = false;
+                    ec3.Idle();
                     StartCoroutine(LastHitProcess());
                 }
             }
@@ -181,28 +198,31 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (SceneManager.GetActiveScene().name == "Enemy1")
         {
+            ec1.enemyMoving = false;
             // 1. 기억 장면 UI를 활성화한다.
             ec1.memory.SetActive(true);
             // 2. 5초간 대기한다.
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             // 3. 기억 장면 UI를 비활성화한다.
             ec1.memory.SetActive(false);
         }
         else if (SceneManager.GetActiveScene().name == "Enemy2")
         {
+            ec2.enemyMoving = false;
             // 1. 기억 장면 UI를 활성화한다.
             ec2.memory.SetActive(true);
             // 2. 5초간 대기한다.
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             // 3. 기억 장면 UI를 비활성화한다.
-            ec2.memory.SetActive(false);  
+            ec2.memory.SetActive(false);
         }
         else if (SceneManager.GetActiveScene().name == "Enemy3")
         {
+            ec3.enemyMoving = false;
             // 1. 기억 장면 UI를 활성화한다.
             ec3.memory.SetActive(true);
             // 2. 5초간 대기한다.
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             // 3. 기억 장면 UI를 비활성화한다.
             ec3.memory.SetActive(false);
             aftermemory = true;

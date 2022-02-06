@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,14 +41,12 @@ public class ChatManager : MonoBehaviour
     public GameObject motherPanel3;
 
     int talkIndex = 0;
-    bool istalk;
 
     PlayerController playercontroller;
     public GameObject Player;
     public GameObject Enemy1;
     public GameObject Enemy2;
     public GameObject Enemy3;
-
 
     bool bFirstWord = true;
 
@@ -58,6 +56,7 @@ public class ChatManager : MonoBehaviour
         //talkPanel.SetActive(false);
         theDatabase = FindObjectOfType<ItemDatabase>(); // ItemDataBase 스크립트
         Player = GameObject.Find("Player"); 
+        isAction = false;
     }
 
     void Update()
@@ -110,7 +109,7 @@ public class ChatManager : MonoBehaviour
         }
         // 대화창 이미지도 같이 활/비활성화
         talkPanel.SetActive(isAction);
-        talkText.gameObject.SetActive(isAction);
+        talkText.gameObject.SetActive(isAction); 
     }
 
     // 2.아이템 습득시 아이템 설명을 대화창에 띄우는 함수
@@ -148,6 +147,9 @@ public class ChatManager : MonoBehaviour
     {
         List<string> talkData;
 
+        Debug.Log("SfhoeDialog 호출");
+        talkText.gameObject.SetActive(true);
+
         // Stage1
         if (SceneManager.GetActiveScene().name == "BedRoom")
         {
@@ -157,11 +159,14 @@ public class ChatManager : MonoBehaviour
                 talkText.text = " ";
                 playerPanel1.SetActive(false);
                 talkIndex = 0;
+                talkText.gameObject.SetActive(false);
+                Debug.Log("대화 끝, 대화텍스트 비활성화");
                 return;
             }
 
             if ((bFirstWord || Input.GetKeyDown(KeyCode.Space)))
             {
+
                 talkText.text = talkData[talkIndex];
                 if(talkIndex == 3)
                 {
@@ -181,26 +186,26 @@ public class ChatManager : MonoBehaviour
                 }
                 talkIndex++;
             }
+        }
 
-            // 쪽지를 읽은 후
-            if (theDatabase.NoteList[0].isGet == true)
+        if (SceneManager.GetActiveScene().name == "LivingRoom")
+        {
+            talkData = talkManager.GetTalk(talkManager.talk1, talkIndex);
+            if (talkData == null)
             {
-                talkData = talkManager.GetTalk(talkManager.talk1, talkIndex);
-                if (talkData == null)
-                {
-                    talkText.text = " ";
-                    talkPanel.SetActive(false);
-                    talkIndex = 0;
-                    Inventory.instance.currentNote.isGet = false;
-                    return;
-                }
+                talkText.text = " ";
+                playerPanel1.SetActive(false);
+                talkIndex = 0;
+                talkText.gameObject.SetActive(false);
+                return;
+            }
 
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    talkText.text = talkData[talkIndex];
-                    talkPanel.SetActive(true);
-                    talkIndex++;
-                }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //talkText.SetActive(true);
+                talkText.text = talkData[talkIndex];
+                playerPanel1.SetActive(true);
+                talkIndex++;
             }
         }
 
@@ -208,15 +213,15 @@ public class ChatManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Road")
         {
             talkData = talkManager.GetTalk(talkManager.Talk2, talkIndex);
-            bFirstWord=true;
             if (talkData == null)
             {
                 talkText.text = " ";
                 playerPanel1.SetActive(false);
                 talkIndex = 0;
+                talkText.gameObject.SetActive(false);
                 return;
             }
-            if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 talkText.text = talkData[talkIndex];
                 playerPanel1.SetActive(true);
@@ -227,7 +232,7 @@ public class ChatManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Enemy1")
         {
-            Enemy1Controller ec = GameObject.Find("Enemy1").GetComponent<Enemy1Controller>();
+            Enemy1Controller ec1 = GameObject.Find("Enemy1").GetComponent<Enemy1Controller>();
             if (Vector2.Distance(Player.transform.position, Enemy1.transform.position) <= 1)
             {
                 // 에너미에게 말 걸었을 때 실행
@@ -239,7 +244,8 @@ public class ChatManager : MonoBehaviour
                         talkText.text = " ";
                         talkPanel.SetActive(false);
                         talkIndex = 0;
-                        ec.enemyMoving = true;
+                        ec1.enemyMoving = true;
+                        talkText.gameObject.SetActive(false);
                         return;
                     }
 
@@ -262,32 +268,33 @@ public class ChatManager : MonoBehaviour
             }
 
             // 전투가 끝난 후
-            if (ec.hp <= 0)
+            if (ec1.hp<= 0)
             {
+                ec1.enemyMoving = false;
                 talkData = talkManager.GetTalk(talkManager.Talk4, talkIndex);
                 if (talkData == null)
                 {
                     talkText.text = " ";
-                    talkPanel.SetActive(false);
+                    playerPanel1.SetActive(false);
                     talkIndex = 0;
+                    talkText.gameObject.SetActive(false);
                     return;
                 }
 
-                if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // 기억 장면을 본 후
-                    if(playercontroller.aftermemory == true)
+                    talkText.text = talkData[talkIndex];
+                    if(talkIndex == 0 || talkIndex == 4)
                     {
-                        talkPanel.SetActive(true);
-                        talkText.text = talkData[0];
+                        talkPanel.SetActive(false);
+                        playerPanel1.SetActive(true);
                     }
-                    // 쪽지를 본 후
-                    else if(theDatabase.NoteList[1].isGet == true)
+                    else
                     {
+                        playerPanel1.SetActive(false);
                         talkPanel.SetActive(true);
-                        talkText.text = talkData[1];
-                        Inventory.instance.currentNote.isGet = false;
                     }
+                    talkIndex++;
                 }
             }
         }
@@ -295,7 +302,7 @@ public class ChatManager : MonoBehaviour
         // Stage3
         if (SceneManager.GetActiveScene().name == "Enemy2")
         {
-            Enemy2Controller ec = GameObject.Find("Enemy2").GetComponent<Enemy2Controller>();
+            Enemy2Controller ec2 = GameObject.Find("Enemy2").GetComponent<Enemy2Controller>();
             if (Vector2.Distance(Player.transform.position, Enemy2.transform.position) <= 1)
             {
                 // 에너미에게 말 걸었을 때 실행
@@ -307,71 +314,57 @@ public class ChatManager : MonoBehaviour
                         talkText.text = " ";
                         talkPanel.SetActive(false);
                         talkIndex = 0;
-                        ec.enemyMoving = true;
+                        ec2.enemyMoving = true;
+                        talkText.gameObject.SetActive(false);
                         return;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         talkText.text = talkData[talkIndex];
-                        if(talkIndex == 0 || talkIndex == 1)
+                        if(talkIndex == 5 || talkIndex == 6 || talkIndex == 7 || talkIndex == 8 || talkIndex == 9)
                         {
-                            playerPanel2.SetActive(true);
+                            playerPanel1.SetActive(false);
+                            talkPanel.SetActive(true);
                         }
                         else
                         {
-                            playerPanel2.SetActive(false);
-                            talkPanel.SetActive(true);
+                            talkPanel.SetActive(false);
+                            playerPanel1.SetActive(true);
                         }
                         talkIndex++;
                     }
                 }
             }
-            // 문방구에 들어가자마자 실행
-            else
+
+            // 전투가 끝난 후
+            if (ec2.hp <= 0)
             {
-                talkData = talkManager.GetTalk(talkManager.Talk5, talkIndex);
+                ec2.enemyMoving = false;
+                talkData = talkManager.GetTalk(talkManager.Talk7, talkIndex);
                 if (talkData == null)
                 {
                     talkText.text = " ";
                     playerPanel1.SetActive(false);
                     talkIndex = 0;
+                    talkText.gameObject.SetActive(false);
                     return;
                 }
-                if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
+
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     talkText.text = talkData[talkIndex];
-                    playerPanel1.SetActive(true);
+
+                    if (talkIndex == 0 || talkIndex == 4)
+                    {
+                        talkPanel.SetActive(false);
+                        playerPanel1.SetActive(true);
+                    }
+                    else
+                    {
+                        playerPanel1.SetActive(false);
+                        talkPanel.SetActive(true);
+                    }
                     talkIndex++;
-                }
-            }
-
-            // 전투가 끝난 후
-            if (ec.hp <= 0)
-            {
-                talkData = talkManager.GetTalk(talkManager.Talk7, talkIndex);
-                if (talkData == null)
-                {
-                    talkText.text = " ";
-                    talkPanel.SetActive(false);
-                    talkIndex = 0;
-                    return;
-                }
-
-                if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
-                {
-                    // 기억 장면을 본 후
-                    if (playercontroller.aftermemory == true)
-                    {
-                        talkPanel.SetActive(true);
-                        talkText.text = talkData[0];
-                    }
-                    // 쪽지를 본 후
-                    else if (theDatabase.NoteList[1].isGet == true)
-                    {
-                        talkPanel.SetActive(true);
-                        talkText.text = talkData[1];
-                        Inventory.instance.currentNote.isGet = false;
-                    }
                 }
             }
         }
@@ -385,49 +378,33 @@ public class ChatManager : MonoBehaviour
                 // 에너미에게 말 걸었을 때 실행
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    talkData = talkManager.GetTalk(talkManager.Talk9, talkIndex);
+                    talkData = talkManager.GetTalk(talkManager.Talk8, talkIndex);
                     if (talkData == null)
                     {
                         talkText.text = " ";
                         playerPanel1.SetActive(false);
                         talkIndex = 0;
                         ec3.enemyMoving = true;
+                        talkText.gameObject.SetActive(false);
                         return;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         talkText.text = talkData[talkIndex];
-                        if(talkIndex == 3)
+                        if(talkIndex == 4 || talkIndex == 5 || talkIndex == 6)
                         {
-                            talkPanel.SetActive(false);
-                            playerPanel1.SetActive(true);
+                            playerPanel1.SetActive(false);
+                            talkPanel.SetActive(true);
                         }
                         else
                         {
-                            talkPanel.SetActive(true);
+                            talkPanel.SetActive(false);
+                            playerPanel1.SetActive(true);
                         }
                         talkIndex++;
                     }
                 }
 
-            }
-            // 학교에 들어가자마자 실행
-            else
-            {
-                talkData = talkManager.GetTalk(talkManager.Talk8, talkIndex);
-                if (talkData == null)
-                {
-                    talkText.text = " ";
-                    playerPanel1.SetActive(false);
-                    talkIndex = 0;
-                    return;
-                }
-                if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
-                {
-                    talkText.text = talkData[talkIndex];
-                    playerPanel1.SetActive(true);
-                    talkIndex++;
-                }
             }
 
             if (ec3.hp <= 0)
@@ -438,18 +415,25 @@ public class ChatManager : MonoBehaviour
                     talkText.text = " ";
                     motherPanel2.SetActive(false);
                     talkIndex = 0;
+                    talkText.gameObject.SetActive(false);
                     return;
                 }
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     talkText.text = talkData[talkIndex];
                     // 기본 대화창
-                    if(talkIndex == 0)
+                    if (talkIndex == 0)
                     {
+                        motherPanel3.SetActive(false);
+                        motherPanel2.SetActive(false);
+                        playerPanel3.SetActive(false);
+                        playerPanel2.SetActive(false);
+                        playerPanel1.SetActive(false);
+                        motherPanel1.SetActive(false);
                         talkPanel.SetActive(true);
                     }
                     // 엄마 기본 대화창
-                    else if(talkIndex == 3 || talkIndex == 5 || talkIndex == 7 || talkIndex == 8)
+                    if (talkIndex == 3 || talkIndex == 5 || talkIndex == 7 || talkIndex == 8)
                     {
                         talkPanel.SetActive(false);
                         motherPanel3.SetActive(false);
@@ -459,7 +443,7 @@ public class ChatManager : MonoBehaviour
                         motherPanel1.SetActive(true);
                     }
                     // 엄마 눈물
-                    else if(talkIndex == 9 || talkIndex == 11 || talkIndex == 12 || talkIndex == 15 || talkIndex == 17)
+                    else if (talkIndex == 9 || talkIndex == 11 || talkIndex == 12 || talkIndex == 15 || talkIndex == 17)
                     {
                         motherPanel1.SetActive(false);
                         talkPanel.SetActive(false);
@@ -469,7 +453,7 @@ public class ChatManager : MonoBehaviour
                         motherPanel3.SetActive(true);
                     }
                     // 엄마 웃음
-                    else if(talkIndex == 18 || talkIndex == 23)
+                    else if (talkIndex == 18 || talkIndex == 23)
                     {
                         motherPanel1.SetActive(false);
                         motherPanel3.SetActive(false);
@@ -479,7 +463,7 @@ public class ChatManager : MonoBehaviour
                         motherPanel2.SetActive(true);
                     }
                     // 플레이어 눈물
-                    else if(talkIndex == 19 || talkIndex == 20 || talkIndex == 21 || talkIndex == 22)
+                    else if (talkIndex == 19 || talkIndex == 20 || talkIndex == 21 || talkIndex == 22)
                     {
                         motherPanel1.SetActive(false);
                         motherPanel3.SetActive(false);
@@ -489,7 +473,8 @@ public class ChatManager : MonoBehaviour
                         playerPanel3.SetActive(true);
                     }
                     // 플레이어 기본
-                    else
+                    else if (talkIndex == 1 || talkIndex == 2 || talkIndex == 4 || talkIndex == 6 || talkIndex == 10
+                        || talkIndex == 13 || talkIndex == 14 || talkIndex == 16)
                     {
                         motherPanel1.SetActive(false);
                         motherPanel3.SetActive(false);
@@ -502,7 +487,7 @@ public class ChatManager : MonoBehaviour
                 }
             }
         }
-        
+
         // Stage5
         if (SceneManager.GetActiveScene().name == "Epilogue")
         {
@@ -512,10 +497,11 @@ public class ChatManager : MonoBehaviour
                 talkText.text = " ";
                 playerPanel2.SetActive(false);
                 talkIndex = 0;
+                talkText.gameObject.SetActive(false);
                 return;
             }
 
-            if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 talkText.text = talkData[talkIndex];
                 playerPanel2.SetActive(true);
@@ -553,6 +539,8 @@ public class ChatManager : MonoBehaviour
         // 대화창 이미지도 같이 활/비활성화
         talkPanel.SetActive(isAction);
         talkText.gameObject.SetActive(isAction);
+        Debug.Log(talkPanel.activeSelf);
+        Debug.Log(talkText.IsActive());
     }
 
 }

@@ -34,16 +34,12 @@ public class PickUpItem : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        // 노트의 isGet이 false라면 활성화, true라면 비활성화
+        // 노트의 isGet이 true라면 비활성화
         if ((itemID >= 1000) && (itemID <1004))
         {
             if (theDatabase.NoteList[itemID-1001].isGet == true)
             {
                 gameObject.SetActive(false);
-            }
-            else
-            {
-                gameObject.SetActive(true);
             }
         }
 
@@ -82,8 +78,6 @@ public class PickUpItem : MonoBehaviour
                     if (chatManager.isAction == false)
                     {
                         PickUpNote();
-                        // 쪽지의 getNote를 다시 false로 변경
-                        chatManager.ShowDialogue();
                     }
                 }
             }
@@ -119,10 +113,7 @@ public class PickUpItem : MonoBehaviour
         // 인벤토리에 추가
         Inventory.instance.GetAnItem(itemID);
         // 아이템 리스트의 isGet을 true로 바꿈 (-> 같은 씬에 다시 들어가더라도 화면에 띄우지X)
-        if ((itemID >= 0) && (itemID < 10))
-        {
-            theDatabase.itemList[itemID].isGet = true;
-        }
+        theDatabase.itemList[itemID].isGet = true;
         // 아이템 삭제
         Destroy(gameObject);
     }
@@ -132,6 +123,8 @@ public class PickUpItem : MonoBehaviour
     {
         // 현재 노트를 저장
         Inventory.instance.GetANote(itemID);
+        // 노트 리스트이 isGet을 true로 바꿈
+        theDatabase.NoteList[itemID-1001].isGet = true;
         // 아이템 삭제
         Destroy(gameObject);
     }

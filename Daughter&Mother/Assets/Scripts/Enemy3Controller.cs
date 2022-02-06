@@ -12,8 +12,7 @@ public class Enemy3Controller : MonoBehaviour
         Idle,
         Move,
         Attack,
-        Damaged,
-        Die
+        Damaged
     }
 
     // 에너미 상태 변수
@@ -71,13 +70,14 @@ public class Enemy3Controller : MonoBehaviour
     // 기억장면 이미지 UI
     public GameObject memory;
 
-    // Item, Stuff -> 플레이어가 움직이면 비활성화
-    GameObject Item;
-    GameObject Stuff;
+    // chatManager
+    ChatManager chatManager;
 
     void Start()
     {
-        // 최초의 에너미 상태는 대기로 한다.
+        enemyMoving = false;
+
+        // 최초의 에너미 상태는 움직임으로 한다.
         m_State = EnemyState.Idle;
 
         // 플레이어의 트랜스폼 컴포넌트 받아오기
@@ -87,9 +87,7 @@ public class Enemy3Controller : MonoBehaviour
         cc = GetComponent<CharacterController>();
 
         anim = GetComponent<Animator>();
-
-        Item = GameObject.Find("Item");
-        Stuff = GameObject.Find("Stuff");
+        chatManager = FindObjectOfType<ChatManager>();
 
         // 플레이어의 에너미를 이 객체로 설정
         if (findDistance != 0)
@@ -121,9 +119,6 @@ public class Enemy3Controller : MonoBehaviour
             case EnemyState.Damaged:
                 //Damaged();
                 break;
-            case EnemyState.Die:
-                //Die();
-                break;
         }
 
         // EnemySlider UI 설정
@@ -141,131 +136,130 @@ public class Enemy3Controller : MonoBehaviour
             EnemyHpSlider.gameObject.SetActive(true);
         }
         // 에너미의 hp가 0이면 EnemyHpSlider 비활성화
-        if (hp < 0)
+        if (hp <= 0)
         {
             EnemyHpSlider.gameObject.SetActive(false);
         }
-
-        // 에너미가 움직이는 상태라면 Item, Stuff 오브젝트 비활성화
-        if (enemyMoving == false) 
-        {
-            Item.SetActive(true);
-            Stuff.SetActive(true);
-        }
-        else
-        {
-            Item.SetActive(false);
-            Stuff.SetActive(false);
-        }
     }
 
-    void Idle()
+    public void Idle()
     {
-        // 만일, 플레이어와의 거리가 액션 시작 범위 이내라면 Move 상태로 전환한다.
-        if (Vector3.Distance(transform.position, player.position) < findDistance)
+        if (hp > 0 && enemyMoving == true)
         {
-            m_State = EnemyState.Move;
-            print("상태 전환: Idle -> Move");
-            enemyMoving = true;
+            Move();
         }
-        else
+        else if (hp <= 0)
         {
             enemyMoving = false;
+            anim.SetBool("isMove", enemyMoving);
         }
     }
 
     void Acceleration()
     {
-        accCurrentTime += Time.deltaTime;
-        if (accCurrentTime > accDelay)
-        {
-            moveSpeed = 5f;
-            Debug.Log("순간가속!");
-            if (accCurrentTime - accDelay > 2f) // 5초 이후 2초간 빨라짐
-            {
-                accCurrentTime = 0;
-            }
-        }
-        else
-        {
-            moveSpeed = 1f;
-            Debug.Log("순간가속멈춤" + string.Format("{0:N1}", moveSpeed) + string.Format("{0:N1}", accCurrentTime));
-        }
-    }
-    
-    void Move()
-    {
         if (Inventory.instance.activeInventory)
         {
             enemyMoving = false;
         }
         else
         {
-            enemyMoving = true;
-
-            Vector3 dir = Vector3.zero;
-
-            // 만일, 플레이어와의 거리가 공격 범위 밖이라면 플레이어를 향해 이동한다.
-            if (Vector3.Distance(transform.position, player.position) > attackDistance)
+            if (enemyMoving)
             {
-                // 이동 방향 설정
-                dir = (player.position - transform.position).normalized;
-
-                //순간가속 몇초에 한번씩 할 수 있도록 해야함
-                Acceleration();
-
-                // 캐릭터 콘트롤러를 이용해 이동하기
-                cc.Move(dir * moveSpeed * Time.deltaTime);
-                lastMove = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+                accCurrentTime += Time.deltaTime;
+                if (accCurrentTime > accDelay)
+                {
+                    moveSpeed = 5f;
+                    Debug.Log("순간가속!");
+                    if (accCurrentTime - accDelay > 2f) // 5초 이후 2초간 빨라짐
+                    {
+                        accCurrentTime = 0;
+                    }
+                }
+                else
+                {
+                    moveSpeed = 1f;
+                    Debug.Log("순간가속멈춤" + string.Format("{0:N1}", moveSpeed) + string.Format("{0:N1}", accCurrentTime));
+                }
             }
-            // 그렇지 않다면, 현재 상태를 공격(Attack)으로 전환한다.
-            else
+        }
+
+    }
+    
+    void Move()
+    {
+        if ((chatManager.isAction) ||(Inventory.instance.activeInventory))
+        {
+            enemyMoving = false;
+        }
+        else
+        {
+            if (enemyMoving)
             {
-                m_State = EnemyState.Attack;
-                print("상태 전환: Move -> Attack");
+                Vector3 dir = Vector3.zero;
 
-                // 누적 시간을 공격 딜레이 시간만큼 미리 진행시켜 놓는다.
-                currentTime = attackDelay;
+                // 만일, 플레이어와의 거리가 공격 범위 밖이라면 플레이어를 향해 이동한다.
+                if (Vector3.Distance(transform.position, player.position) > attackDistance)
+                {
+                    // 이동 방향 설정
+                    dir = (player.position - transform.position).normalized;
+
+                    //순간가속 몇초에 한번씩 할 수 있도록 해야함
+                    Acceleration();
+
+                    // 캐릭터 콘트롤러를 이용해 이동하기
+                    cc.Move(dir * moveSpeed * Time.deltaTime);
+                    lastMove = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+                }
+                // 그렇지 않다면, 현재 상태를 공격(Attack)으로 전환한다.
+                else
+                {
+                    m_State = EnemyState.Attack;
+                    print("상태 전환: Move -> Attack");
+
+                    // 누적 시간을 공격 딜레이 시간만큼 미리 진행시켜 놓는다.
+                    currentTime = attackDelay;
+                }
+                anim.SetFloat("DirX", dir.x);
+                anim.SetFloat("DirY", dir.y);
+                anim.SetBool("isMove", enemyMoving);
+                anim.SetFloat("LastMoveX", lastMove.x);
+                anim.SetFloat("LastMoveY", lastMove.y);
             }
-            anim.SetFloat("DirX", dir.x);
-            anim.SetFloat("DirY", dir.y);
-            anim.SetBool("isMove", enemyMoving);
-            anim.SetFloat("LastMoveX", lastMove.x);
-            anim.SetFloat("LastMoveY", lastMove.y);
         }
     }
 
     void Attack()
     {
-        if (Inventory.instance.activeInventory)
+        if ((chatManager.isAction) ||(Inventory.instance.activeInventory))
         {
             enemyMoving = false;
             Debug.Log(enemyMoving);
         }
         else
         {
-            enemyMoving = true;
-
-            // 만일, 플레이어가 공격 범위 이내에 있다면 플레이어를 공격한다.
-            if (Vector3.Distance(transform.position, player.position) < attackDistance)
+            if (enemyMoving)
             {
-                // 일정 시간마다 플레이어를 공격한다.
-                currentTime += Time.deltaTime;
-                if (currentTime > attackDelay)
+                // 만일, 플레이어가 공격 범위 이내에 있다면 플레이어를 공격한다.
+                if (Vector3.Distance(transform.position, player.position) < attackDistance)
                 {
-                    // 플레이어 피격 -> HP 감소
-                    player.GetComponent<PlayerController>().DamageAction(attackPower);
-                    print(PlayerStat.instance.currentHP + "이 남았습니다");
-                    print("공격");
+                    // 일정 시간마다 플레이어를 공격한다.
+                    currentTime += Time.deltaTime;
+                    if (currentTime > attackDelay)
+                    {
+                        // 플레이어 피격 -> HP 감소
+                        player.GetComponent<PlayerController>().DamageAction(attackPower);
+                        print(PlayerStat.instance.currentHP + "이 남았습니다");
+                        print("공격");
+                        currentTime = 0;
+                    }
+                }
+                // 그렇지 않다면, 현재 상태를 이동(Move)으로 전환한다(재추격 실시).
+                else
+                {
+                    m_State = EnemyState.Move;
+                    print("상태 전환: Attack -> Move");
                     currentTime = 0;
                 }
-            }
-            // 그렇지 않다면, 현재 상태를 이동(Move)으로 전환한다(재추격 실시).
-            else
-            {
-                m_State = EnemyState.Move;
-                print("상태 전환: Attack -> Move");
-                currentTime = 0;
             }
         }
     }
@@ -286,11 +280,11 @@ public class Enemy3Controller : MonoBehaviour
         print("상태 전환: Damaged -> Move");
     }
 
-    // 데미지 실행 함수
+  // 데미지 실행 함수
     public void HitEnemy(int hitPower)
     {
         // 만일, 이미 피격 상태이거나 사망 상태 또는 복귀 상태라면 아무런 처리도 하지 않고 함수를 종료한다.
-        if (m_State == EnemyState.Damaged || m_State == EnemyState.Die)
+        if (m_State == EnemyState.Damaged)
         {
             return;
         }
@@ -309,33 +303,9 @@ public class Enemy3Controller : MonoBehaviour
         // 그렇지 않다면 죽음 상태로 전환한다.
         else
         {
-            m_State = EnemyState.Die;
             print("상태 전환: Any state -> Die");
 
-            Die();
+            enemyMoving = false;
         }
-    }
-
-    // 죽음 상태 함수
-    void Die()
-    {
-        // 진행 중인 피격 코루틴을 중지한다.
-        StopAllCoroutines();
-
-        // 죽음 상태를 처리하기 위한 코루틴을 실행한다.
-        StartCoroutine(DieProcess());
-    }
-
-    IEnumerator DieProcess()
-    {
-        print("소멸!");
-
-        // 캐릭터 콘트롤러 컴포넌트를 비활성화시킨다.
-        cc.enabled = false;
-
-        // 2초 동안 기다린 후에 자기 자신을 제거한다.
-        yield return new WaitForSeconds(2f);
-
-        Destroy(gameObject);
     }
 }
