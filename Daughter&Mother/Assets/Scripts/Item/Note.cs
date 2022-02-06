@@ -10,15 +10,15 @@ public class Note
     public int noteID; // 아이템 ID
     public string noteContent; //아이템 설명(대화창, 인벤토리창)
     public Sprite noteIcon; //아이템 이미지
-    public bool getNote; // 쪽지를 얻은 직후 true
+    public bool isGet; // 쪽지를 얻은 직후 true
 
     // 생성자
-    public Note(int _noteID, string _noteContent, bool _getNote)
+    public Note(int _noteID, string _noteContent, bool _isGet)
     {
         // 속성 초기화 
         noteID = _noteID;
         noteContent = _noteContent;
-        getNote = _getNote;
+        isGet = _isGet;
         // resources 파일에 있는 letter 이미지를 가져온다. 
         noteIcon = Resources.Load("letter", typeof(Sprite)) as Sprite; 
     }

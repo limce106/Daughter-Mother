@@ -34,6 +34,18 @@ public class PickUpItem : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        // 노트의 isGet이 false라면 활성화, true라면 비활성화
+        if ((itemID >= 1000) && (itemID <1004))
+        {
+            if (theDatabase.NoteList[itemID-1001].isGet == true)
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(true);
+            }
+        }
 
     }
 
@@ -65,7 +77,7 @@ public class PickUpItem : MonoBehaviour
                 {
                     chatManager.ActionNoteCont(itemID);
                     // 획득한 쪽지의 getNote 를 true로 변경
-                    Inventory.instance.currentNote.getNote = true;
+                    Inventory.instance.currentNote.isGet = true;
                     // if (비활성화 되었을 때) -> 스페이스로 활성화 시킨 후 다시 비활 시킨 것. 
                     if (chatManager.isAction == false)
                     {

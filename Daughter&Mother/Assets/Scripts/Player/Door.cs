@@ -7,59 +7,61 @@ public class Door : MonoBehaviour
 {
     // 플레이어 게임 오브젝트
     private GameObject Player; 
-    // 어떤 씬으로 이동하는 통로인지.
-    public string NextScene; 
+    // 어디로 이동하는지?
+    public string MoveTo;
 
     private void Awake() 
     {
         Player = GameObject.Find("Player");
     }
+    
     void OnTriggerEnter2D(Collider2D col)
     {
+        // 플레이어의 최근 사용한 Door를 MoveTo로 지정
+        PlayerController.instance.currentDoor = MoveTo;
+        // Door 콜라이더에 플레이어가 닿으면 해당 씬으로 이동
         if (col.gameObject.tag.Equals("Player"))
         {
-            if (NextScene == "LivingRoom")
+            // 거실
+            if (MoveTo == "LivingRoomR")
             {
-                // 플레이어를 적당한 곳에 위치시키는 코드
-                PlayerPosition();
                 SceneManager.LoadScene("LivingRoom");
             }
-            else if (NextScene == "BedRoom")
+            else if (MoveTo == "LivingRoomL")
             {
-                PlayerPosition();
+                SceneManager.LoadScene("LivingRoom");
+            }
+            else if (MoveTo == "LivingRoomD")
+            {
+                SceneManager.LoadScene("LivingRoom");
+            }
+            // 방
+            else if (MoveTo == "BedRoom")
+            {
                 SceneManager.LoadScene("BedRoom");
             }
-            else if (NextScene == "Kitchen")
+            else if (MoveTo == "Kitchen")
             {
-                PlayerPosition();
                 SceneManager.LoadScene("Kitchen");   
             }
-            else if (NextScene == "Road")
+            // 길거리
+            else if (MoveTo == "Road")
             {
-                Player.transform.position = new Vector3(-2.5f, -2, 0);
                 SceneManager.LoadScene("Road");
             }
-            else if (NextScene == "Enemy1")
+            // 전투씬
+            else if (MoveTo == "Enemy1")
             {
-                PlayerPosition();
                 SceneManager.LoadScene("Enemy1");
             }
-            else if (NextScene == "Enemy2")
+            else if (MoveTo == "Enemy2")
             {
-                PlayerPosition();
                 SceneManager.LoadScene("Enemy2");
             }
-            else if (NextScene == "Enemy3")
+            else if (MoveTo == "Enemy3")
             {
-                PlayerPosition();
                 SceneManager.LoadScene("Enemy3");
             }    
         }
-    }
-
-    // 문을 통한 씬 이동 후 위치 잡는 함수
-    void PlayerPosition()
-    {
-        Player.transform.position = new Vector3(0, 0, 0);
     }
 }

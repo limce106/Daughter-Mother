@@ -33,22 +33,20 @@ public class PlayerStat : MonoBehaviour
     }
 
     // Enemy에게 공격당했을 때 플레이어의 체력이 0이 되었을 떄
-    public void Hit()
+    public void Dead()
     {
         // 에너미 공격력 에서 플레이어 방어력을 제외한 만큼 데미지를 입음
         //int dmg = _enemyAtk - DEF;
         //currentHP -= dmg;
         // HP 0 -> 게임 오버
-        if (currentHP < 0)
+        if (currentHP <= 0)
         {
-            currentHP = 0; // (음수X)
-            // 1초동안 화면 멈추기
-            // 페이드 아웃
+            currentHP = 0; // (음수X) 
             // 게임오버 씬 불러오기
             SceneManager.LoadScene("GameOver");
-            // 플레이어 스탯 초기화하기
-            // 인벤토리 초기화 하기
-            // 혹은 세이브 포인트에서 시작하기
+            // 플레이어 오브젝트 삭제
+            Destroy(gameObject);
+            // 인벤토리 초기화 하기 -> DontDestroyObjcst 코드에서
         }
 
         // 데미지 입었을 때 음향, 이미지 효과들 적용
@@ -64,6 +62,6 @@ public class PlayerStat : MonoBehaviour
         hpText.text = v;
 
         // HP가 0 일 때,
-        Hit();
+        Dead();
     }
 }

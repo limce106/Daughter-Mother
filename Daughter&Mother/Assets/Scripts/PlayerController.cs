@@ -5,36 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    // 인스턴스
+    public static PlayerController instance;
+
     // 이동 속도
     public float moveSpeed;
-
     // 캐릭터 콘트롤러 변수
     CharacterController cc;
-
     // Hit 효과 오브젝트
      public GameObject hitEffect;
-
     // 애니메이터 변수
     protected Animator anim;
-
     // 플레이어 움직임 확인
     protected bool playerMoving;
-
     // 마지막 움직임 방향 확인 변수
     protected Vector2 lastMove;
-
     // 플레이어 공격 확인
     protected bool playerAttacking;
-
-    // 플레이어 공격력
-    //public int attackPower = 3;
-
-    // 플레이어 방어력
-    //public int defendPower;
-
-    protected float currentAttackDelay;
-
     // 공격 딜레이 시간
+    protected float currentAttackDelay;
     public float attackDelay = 1f;
 
     public GameObject Player; 
@@ -46,11 +35,10 @@ public class PlayerController : MonoBehaviour
 
     // 대화창
     public ChatManager chatManager;
-
-    public static PlayerController instance;
-
     // 기억장면 후
     public bool aftermemory;
+    // 최근 사용한 Door의 이름 저장 -> DoorPoint에서 사용
+    public string currentDoor;
 
     void Start()
     {
@@ -66,7 +54,6 @@ public class PlayerController : MonoBehaviour
         Move();
         Attack();
         ChangeObject();
-        //chatManager = GameObject.FindObjectOfType<ChatManager>();
     }
 
     void Move()
@@ -137,6 +124,7 @@ public class PlayerController : MonoBehaviour
             playerAttacking = false;
             if (Input.GetKeyDown(KeyCode.Z))
             {
+                Debug.Log("에너미 : " + Enemy);
                 currentAttackDelay = attackDelay;
                 // 공격 애니메이션 활성화
                 playerAttacking = true;
@@ -224,8 +212,16 @@ public class PlayerController : MonoBehaviour
     // 플레이어의 피격 함수
     public void DamageAction(int damage)
     {
-        // 에너미의 공격력만큼 플레이어의 체력을 깎는다. -> playerstat currentHP로 변경하기
-        PlayerStat.instance.currentHP -= damage - PlayerStat.instance.DEF;
+
+        // 플레이어의 방어력이 에너미의 공격력보다 클 경우 1만큼만 타격 
+        if (PlayerStat.instance.DEF >= damage) 
+        {
+            PlayerStat.instance.currentHP -= 1;
+        }
+        else // 방어력을 제외한 만큼의 데미지를 입음
+        {
+            PlayerStat.instance.currentHP -= damage - PlayerStat.instance.DEF;
+        }
 
         // 만일, 플레이어의 체력이 0보다 크면 피격 효과를 출력한다.
         if (PlayerStat.instance.currentHP > 0)

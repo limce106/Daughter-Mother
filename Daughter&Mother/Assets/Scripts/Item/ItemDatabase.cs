@@ -17,8 +17,8 @@ public class ItemDatabase : MonoBehaviour
     private void Start() { 
         // 쪽지 리스트에 쪽지 추가 (Add) 
        NoteList.Add(new Note(1001, PlayerPrefs.GetString("Name") + "아 엄마는 놀이터에 있어\n엄마를 찾으러 와줄래?", false));
-       NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? ", false));
-       NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?", false));
+       NoteList.Add(new Note(1002, "곰인형과 재미있게 놀았니?\n엄마는 지금 문방구에 있단다.\n문방구로 와줄래? ", true));
+       NoteList.Add(new Note(1003, "오랜만에 달콤한 냄새를 맡아보니까 어땠니?\n엄마는 지금 학교에 있단다.\n학교에 와줄래?", true));
 
         // 아이템 리스트에 아이템 추가 (Add)
         itemList.Add(new Item(0, "마법봉장난감", PlayerPrefs.GetString("Name") + "(이)가 제일 좋아하는 마법봉 장난감이다. \n\n공격력 +15", 15, Item.ItemType.Weapon, false));

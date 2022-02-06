@@ -49,6 +49,7 @@ public class ChatManager : MonoBehaviour
     public GameObject Enemy2;
     public GameObject Enemy3;
 
+
     bool bFirstWord = true;
 
     // 처음 시작할 때 대화창 안보이도록 비활성화
@@ -182,7 +183,7 @@ public class ChatManager : MonoBehaviour
             }
 
             // 쪽지를 읽은 후
-            if (theDatabase.NoteList[0].getNote == true)
+            if (theDatabase.NoteList[0].isGet == true)
             {
                 talkData = talkManager.GetTalk(talkManager.talk1, talkIndex);
                 if (talkData == null)
@@ -190,7 +191,7 @@ public class ChatManager : MonoBehaviour
                     talkText.text = " ";
                     talkPanel.SetActive(false);
                     talkIndex = 0;
-                    Inventory.instance.currentNote.getNote = false;
+                    Inventory.instance.currentNote.isGet = false;
                     return;
                 }
 
@@ -281,11 +282,11 @@ public class ChatManager : MonoBehaviour
                         talkText.text = talkData[0];
                     }
                     // 쪽지를 본 후
-                    else if(theDatabase.NoteList[1].getNote == true)
+                    else if(theDatabase.NoteList[1].isGet == true)
                     {
                         talkPanel.SetActive(true);
                         talkText.text = talkData[1];
-                        Inventory.instance.currentNote.getNote = false;
+                        Inventory.instance.currentNote.isGet = false;
                     }
                 }
             }
@@ -365,11 +366,11 @@ public class ChatManager : MonoBehaviour
                         talkText.text = talkData[0];
                     }
                     // 쪽지를 본 후
-                    else if (theDatabase.NoteList[1].getNote == true)
+                    else if (theDatabase.NoteList[1].isGet == true)
                     {
                         talkPanel.SetActive(true);
                         talkText.text = talkData[1];
-                        Inventory.instance.currentNote.getNote = false;
+                        Inventory.instance.currentNote.isGet = false;
                     }
                 }
             }
@@ -378,7 +379,7 @@ public class ChatManager : MonoBehaviour
         // Stage4
         if (SceneManager.GetActiveScene().name == "Enemy3")
         {
-            Enemy3Controller ec = GameObject.Find("Enemy3").GetComponent<Enemy3Controller>();
+            Enemy3Controller ec3 = GameObject.Find("Enemy3").GetComponent<Enemy3Controller>();
             if (Vector2.Distance(Player.transform.position, Enemy3.transform.position) <= 1)
             {
                 // 에너미에게 말 걸었을 때 실행
@@ -390,7 +391,7 @@ public class ChatManager : MonoBehaviour
                         talkText.text = " ";
                         playerPanel1.SetActive(false);
                         talkIndex = 0;
-                        ec.enemyMoving = true;
+                        ec3.enemyMoving = true;
                         return;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
@@ -429,7 +430,7 @@ public class ChatManager : MonoBehaviour
                 }
             }
 
-            if (ec.hp <= 0)
+            if (ec3.hp <= 0)
             {
                 talkData = talkManager.GetTalk(talkManager.Talk10, talkIndex);
                 if (talkData == null)
@@ -439,7 +440,7 @@ public class ChatManager : MonoBehaviour
                     talkIndex = 0;
                     return;
                 }
-                if (bFirstWord || Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     talkText.text = talkData[talkIndex];
                     // 기본 대화창
@@ -501,7 +502,7 @@ public class ChatManager : MonoBehaviour
                 }
             }
         }
-
+        
         // Stage5
         if (SceneManager.GetActiveScene().name == "Epilogue")
         {
