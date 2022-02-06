@@ -45,7 +45,15 @@ public class Door : MonoBehaviour
                 SceneManager.LoadScene("Kitchen");   
             }
             // 길거리
-            else if (MoveTo == "Road")
+            else if (MoveTo == "Road1")
+            {
+                SceneManager.LoadScene("Road");
+            }
+            else if (MoveTo == "Road2")
+            {
+                SceneManager.LoadScene("Road");
+            }
+            else if (MoveTo == "Road3")
             {
                 SceneManager.LoadScene("Road");
             }

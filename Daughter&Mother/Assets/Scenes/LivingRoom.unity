@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079945cf4ba9f7c48a30c546cbc1fd17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveTo: Road
+  MoveTo: Road1
 --- !u!61 &676802074
 BoxCollider2D:
   m_ObjectHideFlags: 0
