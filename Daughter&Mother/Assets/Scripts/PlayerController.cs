@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             playerMoving = false;
             playerAttacking = false;
+            // Z를 누르면
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 Debug.Log("에너미 : " + Enemy);
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
                     if (SceneManager.GetActiveScene().name == "Enemy1")
                     {
                         ec1.hp -= PlayerStat.instance.AKT;
+                        Debug.Log(PlayerStat.instance.AKT);
                     }
                     else if (SceneManager.GetActiveScene().name == "Enemy2")
                     {
@@ -270,7 +272,6 @@ public class PlayerController : MonoBehaviour
         if(PlayerStat.instance.weapon != PlayerStat.instance.emptyItem)
         {
             anim.SetBool("isChange", true);
-            PlayerStat.instance.AKT = 5;
         }
         else
         {

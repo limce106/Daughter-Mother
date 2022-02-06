@@ -40,10 +40,10 @@ public class Enemy1Controller : MonoBehaviour
     float attackDelay;
 
     // 에너미 공격력
-    public int attackPower = 3;
+    public int attackPower = 5;
 
     // 에너미의 체력
-    public int hp = 15;
+    public int hp = 30;
     
     //영상보고 코드 추가하기
 
@@ -124,7 +124,7 @@ public class Enemy1Controller : MonoBehaviour
                 break;
         }
         // EnemySlider UI 설정
-        EnemyHpSlider.maxValue = 15; // Enemy1의 총 HP는 15
+        EnemyHpSlider.maxValue = 30; // Enemy1의 총 HP는 30
         EnemyHpSlider.value = hp; 
         string a = hp.ToString(); 
         EnemyHpText.text = a;
