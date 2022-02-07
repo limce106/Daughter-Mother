@@ -38,4 +38,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Battle/Enemy3.unity
     guid: 9782c70570ad24048b1c44c74bd9ae4f
+  - enabled: 1
+    path: Assets/Scenes/RealWorld.unity
+    guid: c74b367b487db1d4da72767e8402fd27
+  - enabled: 1
+    path: Assets/Scenes/OutsideGame/GameClear.unity
+    guid: 5f1a877a0d4008a41a39959d3801688c
   m_configObjects: {}

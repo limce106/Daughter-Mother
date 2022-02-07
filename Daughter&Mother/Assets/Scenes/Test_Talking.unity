@@ -4186,6 +4186,7 @@ MonoBehaviour:
   ec3: {fileID: 0}
   chatManager: {fileID: 508541085}
   aftermemory: 0
+  currentDoor: 
 --- !u!50 &1154285268
 Rigidbody2D:
   serializedVersion: 4
@@ -6588,7 +6589,7 @@ MonoBehaviour:
     noteID: 0
     noteContent: 
     noteIcon: {fileID: 0}
-    getNote: 0
+    isGet: 0
 --- !u!4 &1813407598
 Transform:
   m_ObjectHideFlags: 0

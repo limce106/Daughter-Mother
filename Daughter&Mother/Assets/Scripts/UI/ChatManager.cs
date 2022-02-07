@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -96,8 +96,6 @@ public class ChatManager : MonoBehaviour
             // 데이터 베이스의 아이템 리스트 크기만큼 반복하며 ID를 찾음
             for (int i = 100; i < (theDatabase.stuffList.Count + 100); i++)
             {
-                Debug.Log("stuff 리스트 개수 : " + theDatabase.stuffList.Count);
-                Debug.Log("for문 도는 중~!");
                 if (_itemID == theDatabase.stuffList[i - 100].stuffID) //베이스에서 ID를 찾으면
                 {
                     isAction = true; // 대화창 활성화
@@ -230,10 +228,10 @@ public class ChatManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().name == "Enemy1")
+        if (SceneManager.GetActiveScene().name == "Enemy1") 
         {
-            Enemy1Controller ec1 = GameObject.Find("Enemy1").GetComponent<Enemy1Controller>();
-            if (Vector2.Distance(Player.transform.position, Enemy1.transform.position) <= 1)
+            Enemy1Controller ec1 = GameObject.Find("Enemy1").GetComponent<Enemy1Controller>(); 
+            if (Vector2.Distance(Player.transform.position, Enemy1.transform.position) <= 1) 
             {
                 // 에너미에게 말 걸었을 때 실행
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -246,6 +244,7 @@ public class ChatManager : MonoBehaviour
                         talkIndex = 0;
                         ec1.enemyMoving = true;
                         talkText.gameObject.SetActive(false);
+                        BgmManager.instance.Play(1);
                         return;
                     }
 
@@ -266,6 +265,14 @@ public class ChatManager : MonoBehaviour
                 }
             
             }
+            else
+            {
+                if (ec1.hp > 0)
+                {
+                    talkText.gameObject.SetActive(false);
+                }
+            }
+
 
             // 전투가 끝난 후
             if (ec1.hp<= 0)
@@ -317,7 +324,7 @@ public class ChatManager : MonoBehaviour
                         talkIndex = 0;
                         ec2.enemyMoving = true;
                         talkText.gameObject.SetActive(false);
-                        Inventory.instance.GetANote(1003);
+                        BgmManager.instance.Play(1);
                         return;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
@@ -337,6 +344,13 @@ public class ChatManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                if (ec2.hp > 0)
+                {
+                    talkText.gameObject.SetActive(false);
+                }
+            }
 
             // 전투가 끝난 후
             if (ec2.hp <= 0)
@@ -349,6 +363,7 @@ public class ChatManager : MonoBehaviour
                     playerPanel1.SetActive(false);
                     talkIndex = 0;
                     talkText.gameObject.SetActive(false);
+                    Inventory.instance.GetANote(1003);
                     return;
                 }
 
@@ -388,15 +403,23 @@ public class ChatManager : MonoBehaviour
                         talkIndex = 0;
                         ec3.enemyMoving = true;
                         talkText.gameObject.SetActive(false);
+                        BgmManager.instance.Play(1);
                         return;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         talkText.text = talkData[talkIndex];
-                        if(talkIndex == 4 || talkIndex == 5 || talkIndex == 6)
+                        if(talkIndex == 5 || talkIndex == 6)
                         {
                             playerPanel1.SetActive(false);
                             talkPanel.SetActive(true);
+                        }
+                        else if(talkIndex == 4)
+                        {
+                            playerPanel1.SetActive(false);
+                            talkPanel.SetActive(true);
+                            ec3.enemyChange = true;
+                            ec3.anim.SetBool("isChange", ec3.enemyChange);
                         }
                         else
                         {
@@ -408,7 +431,14 @@ public class ChatManager : MonoBehaviour
                 }
 
             }
-
+            else
+            {
+                if (ec3.hp > 0)
+                {
+                    talkText.gameObject.SetActive(false);
+                }
+            }
+            // 전투가 끝난 후
             if (ec3.hp <= 0)
             {
                 talkData = talkManager.GetTalk(talkManager.Talk10, talkIndex);
@@ -418,6 +448,8 @@ public class ChatManager : MonoBehaviour
                     motherPanel2.SetActive(false);
                     talkIndex = 0;
                     talkText.gameObject.SetActive(false);
+                    SceneManager.LoadScene("RealWorld");
+                    Player.transform.position = new Vector3(0,0,0); // 플레이어의 좌표를 0로
                     return;
                 }
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -455,7 +487,7 @@ public class ChatManager : MonoBehaviour
                         motherPanel3.SetActive(true);
                     }
                     // 엄마 웃음
-                    else if (talkIndex == 18 || talkIndex == 23)
+                    else if (talkIndex == 18 || talkIndex == 19 || talkIndex == 20 || talkIndex == 25)
                     {
                         motherPanel1.SetActive(false);
                         motherPanel3.SetActive(false);
@@ -465,7 +497,7 @@ public class ChatManager : MonoBehaviour
                         motherPanel2.SetActive(true);
                     }
                     // 플레이어 눈물
-                    else if (talkIndex == 19 || talkIndex == 20 || talkIndex == 21 || talkIndex == 22)
+                    else if (talkIndex == 21 || talkIndex == 22 || talkIndex == 23 || talkIndex == 24)
                     {
                         motherPanel1.SetActive(false);
                         motherPanel3.SetActive(false);
@@ -491,7 +523,7 @@ public class ChatManager : MonoBehaviour
         }
 
         // Stage5
-        if (SceneManager.GetActiveScene().name == "Epilogue")
+        if (SceneManager.GetActiveScene().name == "RealWorld")
         {
             talkData = talkManager.GetTalk(talkManager.Talk11, talkIndex);
             if (talkData == null)
@@ -500,6 +532,7 @@ public class ChatManager : MonoBehaviour
                 playerPanel2.SetActive(false);
                 talkIndex = 0;
                 talkText.gameObject.SetActive(false);
+                SceneManager.LoadScene("GameClear");
                 return;
             }
 

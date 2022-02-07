@@ -18,9 +18,14 @@ public class Button : MonoBehaviour
     }
 
     // 씬 전환 함수들
+    public void ChangeToNameSceneNobmg() 
+    {
+        SceneManager.LoadScene("SetName"); 
+    }
     public void ChangeToNameScene()
     {
         SceneManager.LoadScene("SetName"); 
+        BgmManager.instance.Play(0);
     }
     public void ChangeSToExplainScene()
     {

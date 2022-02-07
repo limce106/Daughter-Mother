@@ -320,7 +320,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -395,7 +395,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7898cfdb1c6ce1142804d99d2793ac88, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8c72ccfc7f1d4fb4aaebc6896df96a09, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.556
   m_Pitch: 1
@@ -508,9 +508,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 7898cfdb1c6ce1142804d99d2793ac88, type: 3}
-  - {fileID: 8300000, guid: fafa786cab6a05345a1bab0ac2d5f4d3, type: 3}
-  - {fileID: 8300000, guid: 852196fd24311e046bce45202c01033b, type: 3}
+  - {fileID: 8300000, guid: 8c72ccfc7f1d4fb4aaebc6896df96a09, type: 3}
+  - {fileID: 8300000, guid: 911f7efda3c107b4499321cc736770be, type: 3}
+  - {fileID: 8300000, guid: d82201af8a03b3744b3b91fe686f88bd, type: 3}
+  ecbgm1: {fileID: 0}
+  ecbgm2: {fileID: 0}
+  ecbgm3: {fileID: 0}
 --- !u!1 &546853953
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +841,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1319202031}
         m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeToNameScene
+        m_MethodName: ChangeToNameSceneNobmg
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

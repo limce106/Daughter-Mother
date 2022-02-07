@@ -27,7 +27,7 @@ public class DontDestroyObject : MonoBehaviour
     void Update() 
     {
         // 게임오버씬에서 삭제
-        if (SceneManager.GetActiveScene().name == "GameOver")
+        if ((SceneManager.GetActiveScene().name == "GameOver")||(SceneManager.GetActiveScene().name == "GameClear"))
         {
             Destroy(gameObject);
         }

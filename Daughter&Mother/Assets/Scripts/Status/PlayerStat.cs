@@ -44,13 +44,13 @@ public class PlayerStat : MonoBehaviour
             currentHP = 0; // (음수X) 
             // 게임오버 씬 불러오기
             SceneManager.LoadScene("GameOver");
-            // 플레이어 오브젝트 삭제
-            Destroy(gameObject);
+            // bgm 변화
+            BgmManager.instance.Play(2);
+            // 플레이어 오브젝트 삭제 -> DontDestroyObjcst 코드에서
             // 인벤토리 초기화 하기 -> DontDestroyObjcst 코드에서
         }
 
         // 데미지 입었을 때 음향, 이미지 효과들 적용
-
     }
     void Update()
     {
