@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator LastHitProcess()
     {
-        BgmManager.instance.Play(0);
+        BgmManager.instance.Play(0); 
         yield return new WaitForSeconds(0.5f);
         if (SceneManager.GetActiveScene().name == "Enemy1")
         {

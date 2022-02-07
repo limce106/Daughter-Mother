@@ -93,7 +93,6 @@ public class Enemy1Controller : MonoBehaviour
         }
         // BGM 설정
         BgmManager.instance.ecbgm1 = this;
-        Debug.Log(BgmManager.instance.ecbgm1);
         // playercontroller의 ec1 설정
         PlayerController.instance.ec1 = GameObject.Find("Enemy1").GetComponent<Enemy1Controller>();
         // 에너미 체력바 슬라이더를 비활성화 상태로

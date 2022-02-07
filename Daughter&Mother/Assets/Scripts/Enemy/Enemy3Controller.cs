@@ -134,7 +134,6 @@ public class Enemy3Controller : MonoBehaviour
         if (hp <= 0)
         {
             EnemyHpSlider.gameObject.SetActive(false);
-            BgmManager.instance.Play(0);
         }
     }
 
