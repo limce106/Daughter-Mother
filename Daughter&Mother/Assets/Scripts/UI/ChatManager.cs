@@ -278,6 +278,7 @@ public class ChatManager : MonoBehaviour
                     playerPanel1.SetActive(false);
                     talkIndex = 0;
                     talkText.gameObject.SetActive(false);
+                    Inventory.instance.GetANote(1002);
                     return;
                 }
 
@@ -316,6 +317,7 @@ public class ChatManager : MonoBehaviour
                         talkIndex = 0;
                         ec2.enemyMoving = true;
                         talkText.gameObject.SetActive(false);
+                        Inventory.instance.GetANote(1003);
                         return;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
