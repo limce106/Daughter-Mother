@@ -15,3 +15,19 @@ Production of 2D RPG game using Unity Engine
 제작자 : 변혜빈, 서가은, 김바다, 임채은
 
 발표 링크 : <https://www.youtube.com/watch?v=ApTbvGVLYOA&t=1s>
+
+---
+
+게임 내 아이템과 장비 구상
+
+카메라 구현
+
+플레이어 움직임/애니메이션, 공격, 피격 구현
+
+적(곰 인형, 달고나, 토끼 인형) 움직임/애니메이션, 공격, 피격 구현
+
+맵 제한 구현
+
+기억 장면 구현
+
+대화 구현
